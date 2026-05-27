@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { ChevronDown, Plus, Minus, Check, Trash2, ShoppingBag, Sparkles } from "lucide-react"
+import { ChevronDown, Plus, Minus, Check, Trash2, ShoppingBag, Heart, GlassWater, Smartphone, Briefcase } from "lucide-react"
 import {
   SERVICE_CATEGORIES,
   DISCOUNT,
@@ -102,7 +102,10 @@ export function Calculator() {
                   className="w-full flex items-center justify-between px-5 md:px-6 py-5 hover:bg-white/[0.02] transition-colors"
                 >
                   <div className="flex items-center gap-3 text-left">
-                    <Sparkles className="h-5 w-5 text-brand-red shrink-0" />
+                    {cat.icon === "heart" && <Heart className="h-5 w-5 text-brand-red shrink-0" />}
+                    {cat.icon === "glass-water" && <GlassWater className="h-5 w-5 text-brand-red shrink-0" />}
+                    {cat.icon === "smartphone" && <Smartphone className="h-5 w-5 text-brand-red shrink-0" />}
+                    {cat.icon === "briefcase" && <Briefcase className="h-5 w-5 text-brand-red shrink-0" />}
                     <h3 className="text-lg md:text-xl font-bold">{cat.title}</h3>
                   </div>
                   <ChevronDown

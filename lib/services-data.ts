@@ -9,6 +9,7 @@ export type Service = {
 export type ServiceCategory = {
   id: string
   title: string
+  icon: string
   services: Service[]
 }
 
@@ -16,36 +17,36 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   {
     id: "wedding",
     title: "Свадебные истории",
+    icon: "heart",
     services: [
       {
         id: "wedding-day",
-        title: "Съемка свадебного дня (до 12 часов)",
-        description:
-          "Запечатлею все ключевые моменты от сборов до торта. Работаю незаметно, ловлю искренние эмоции.",
+        title: "Съемка свадебного дня",
+        description: "Ловлю искренние эмоции и масштаб события без лишней постановки",
         basePrice: 160000,
       },
       {
         id: "wedding-edit",
-        title: "Монтаж свадебного фильма и клипа",
-        description: "Кинематографичный фильм для семейного архива и стильный тизер для соцсетей.",
+        title: "Монтаж фильма",
+        description: "Кинематографичный фильм и стильный тизер для соцсетей",
         basePrice: 80000,
       },
       {
         id: "love-story",
-        title: "Love Story (Сценарий + Съемка + Монтаж)",
-        description: "Ваша личная киноистория. Продумаем идею, подберем локации и снимем красивый мини-фильм.",
+        title: "Love Story",
+        description: "Ваша личная киноистория с продуманной идеей и локациями",
         basePrice: 70000,
       },
       {
         id: "video-invite",
-        title: "Видео-пригласительное для гостей",
-        description: "Креативный способ позвать близких на торжество. Экологично и современно.",
+        title: "Видео-пригласительное",
+        description: "Креативный способ позвать близких в современном формате",
         basePrice: 25000,
       },
       {
         id: "reels-wedding",
-        title: 'Пакет "Reels-Свадьба" (3 ролика за 48 часов)',
-        description: "Готовые трендовые видео для вашего Instagram сразу после праздника.",
+        title: 'Пакет "Reels-Свадьба"',
+        description: "Трендовые ролики для Instagram сразу после праздника",
         basePrice: 20000,
       },
     ],
@@ -53,24 +54,25 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   {
     id: "events",
     title: "Торжественные мероприятия",
+    icon: "glass-water",
     services: [
       {
         id: "event-shooting",
-        title: "Выездная съемка (почасовая)",
-        description: "Профессиональная репортажная съемка с качественным светом и стабилизацией.",
+        title: "Выездная съемка",
+        description: "Профессиональный репортаж с идеальным светом и стабилизацией",
         basePrice: 20000,
         hourly: true,
       },
       {
         id: "aftermovie",
-        title: "Монтаж отчетного ролика (aftermovie)",
-        description: "Сочный ролик на 2-4 минуты под драйвовую музыку.",
+        title: "Монтаж aftermovie",
+        description: "Сочный отчетный ролик под драйвовую музыку",
         basePrice: 30000,
       },
       {
         id: "creative-clip",
-        title: "Творческий / Пародийный клип (Сценарий + монтаж)",
-        description: "Постановочное видео с режиссурой для нестандартного поздравления или сюрприза.",
+        title: "Творческий клип",
+        description: "Постановочное видео с режиссурой для вау-эффекта",
         basePrice: 50000,
       },
     ],
@@ -78,29 +80,30 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   {
     id: "social",
     title: "Соцсети и Блоги",
+    icon: "smartphone",
     services: [
       {
         id: "script",
-        title: "Разработка сценария и концепта (1 ролик)",
-        description: "Структура видео, которая цепляет с первой секунды.",
+        title: "Разработка сценария",
+        description: "Цепляющая структура ролика с первых секунд",
         basePrice: 5000,
       },
       {
         id: "reels-series",
-        title: "Съемка серии Reels/TikTok (до 15 роликов)",
-        description: "Выставим свет и отснимем запас контента на месяц за один выезд.",
+        title: "Съемка серии Reels",
+        description: "Запас качественного контента на месяц за один выезд",
         basePrice: 40000,
       },
       {
         id: "vertical-edit",
-        title: "Монтаж вертикального видео (1 ролик)",
-        description: "Динамичная склейка, саунд-дизайн, трендовые эффекты и субтитры.",
+        title: "Монтаж вертикального видео",
+        description: "Динамичная склейка со звуком и трендовыми эффектами",
         basePrice: 8000,
       },
       {
         id: "youtube-edit",
-        title: "Монтаж YouTube-выпуска (до 15 минут)",
-        description: "Профессиональный эдиторинг: вырежу паузы, добавлю инфографику.",
+        title: "Монтаж YouTube",
+        description: "Профессиональный эдиторинг с вырезанными паузами",
         basePrice: 35000,
       },
     ],
@@ -108,23 +111,24 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   {
     id: "business",
     title: "Бизнес и Бренды",
+    icon: "briefcase",
     services: [
       {
         id: "smm-package",
-        title: "Комплексный SMM-видеопакет (10-12 Reels под ключ)",
-        description: "От генерации идей до готовых роликов, работающих на конверсию.",
+        title: "Комплексный SMM",
+        description: "Готовые ролики под ключ для высоких конверсий",
         basePrice: 120000,
       },
       {
         id: "promo",
-        title: "Промо-ролик / Видеообзор под ключ (Съемка + Монтаж)",
-        description: "Презентабельное видео вашего бизнеса или продукта.",
+        title: "Промо-ролик",
+        description: "Презентабельное видео вашего бизнеса и продукта",
         basePrice: 60000,
       },
       {
         id: "target-creative",
-        title: "Монтаж креатива для таргета",
-        description: "Яркий 15-секундный ролик из ваших материалов, который пробивает баннерную слепоту.",
+        title: "Монтаж креатива",
+        description: "Яркий рекламный ролик пробивающий баннерную слепоту",
         basePrice: 15000,
       },
     ],

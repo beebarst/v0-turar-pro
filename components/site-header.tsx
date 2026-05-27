@@ -23,8 +23,13 @@ export function SiteHeader() {
       }`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 md:h-20 flex items-center justify-between">
-        <a href="#top" className="text-white font-bold text-lg md:text-xl tracking-tight">
-          TURAR<span className="text-brand-red">.</span>PRO
+        <a href="#top" className="flex flex-col leading-tight">
+          <span className="text-white font-bold text-lg md:text-xl tracking-tight">
+            TURAR<span className="text-brand-red">.</span>PRO
+          </span>
+          <span className="text-[10px] md:text-xs text-white/50 tracking-wide">
+            Видеограф Бибарыс Тұрар | Костанай
+          </span>
         </a>
 
         <div className="flex items-center gap-2 md:gap-5">

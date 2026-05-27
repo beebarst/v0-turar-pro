@@ -13,22 +13,12 @@ export function Hero() {
       className="relative min-h-[100svh] flex items-center pt-24 pb-16 px-4 sm:px-6 lg:px-8"
     >
       <div className="mx-auto max-w-5xl w-full text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/[0.02] backdrop-blur-sm mb-8">
-          <span className="h-2 w-2 rounded-full bg-brand-red animate-pulse" />
-          <span className="text-xs md:text-sm text-white/70 tracking-wide">
-            Бибарыс Тұрар · Видеограф · Алматы
-          </span>
-        </div>
-
         <h1 className="text-balance text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05]">
-          Видеопроизводство <span className="text-brand-red">полного цикла</span>.
-          <br className="hidden sm:block" /> Рассчитайте стоимость проекта{" "}
-          <span className="text-brand-red">за 1 минуту</span>
+          Твое лучшее видео <span className="text-brand-red">начинается здесь</span>
         </h1>
 
-        <p className="mt-6 md:mt-8 text-pretty text-base md:text-lg text-white/60 max-w-2xl mx-auto leading-relaxed">
-          Свадьбы, мероприятия, Reels и брендовые видео. Соберите свой пакет в калькуляторе ниже —
-          цена пересчитается мгновенно.
+        <p className="mt-6 md:mt-8 text-pretty text-lg md:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed">
+          Собери свой проект в калькуляторе и успей забронировать дату
         </p>
 
         <div className="mt-10 flex flex-col sm:flex-row gap-3 items-center justify-center">

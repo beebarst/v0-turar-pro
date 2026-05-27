@@ -40,7 +40,7 @@ export function FloatingBadge() {
               Скидка 15% сгорит через
             </div>
             <div className="text-yellow-400 font-mono font-black text-2xl md:text-4xl tabular-nums tracking-wider mt-0.5">
-              [{mm}:{ss}]
+              {mm}:{ss}
             </div>
           </div>
         </div>
