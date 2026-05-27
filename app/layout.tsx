@@ -29,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" className={`${inter.variable} bg-background dark`}>
-      <body className="font-sans antialiased bg-black text-white overflow-x-hidden">
+      <body className="font-sans antialiased bg-transparent text-white overflow-x-hidden">
         {children}
         {process.env.NODE_ENV === "production" && <Analytics />}
       </body>
