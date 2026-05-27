@@ -24,7 +24,7 @@ export function Hero() {
         <div className="mt-10 flex flex-col sm:flex-row gap-3 items-center justify-center">
           <button
             onClick={scrollToCalc}
-            className="group relative inline-flex items-center gap-2 px-8 py-4 rounded-full bg-brand-red text-white font-semibold text-base md:text-lg hover:bg-red-600 transition-all duration-300 shadow-[0_0_40px_rgba(239,68,68,0.4)] hover:shadow-[0_0_60px_rgba(239,68,68,0.6)] hover:scale-105"
+            className="group relative inline-flex items-center gap-2 px-8 py-4 rounded-full bg-brand-red text-white font-semibold text-base md:text-lg hover:bg-red-600 transition-all duration-300"
           >
             Рассчитать стоимость
             <ArrowDown className="h-5 w-5 group-hover:translate-y-0.5 transition-transform" />

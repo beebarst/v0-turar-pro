@@ -283,7 +283,7 @@ export function Calculator() {
               <button
                 onClick={() => setModalOpen(true)}
                 disabled={selectedItems.length === 0}
-                className="mt-6 w-full px-6 py-4 rounded-xl bg-brand-red hover:bg-red-600 font-semibold text-base shadow-[0_0_30px_rgba(239,68,68,0.4)] hover:shadow-[0_0_50px_rgba(239,68,68,0.6)] disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none transition-all"
+                className="mt-6 w-full px-6 py-4 rounded-xl bg-brand-red hover:bg-red-600 font-semibold text-base disabled:opacity-40 disabled:cursor-not-allowed transition-all"
               >
                 Оформить заказ со скидкой
               </button>

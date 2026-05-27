@@ -55,7 +55,7 @@ export function ContactFooter() {
             <button
               type="submit"
               disabled={status === "loading" || status === "success"}
-              className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-brand-red hover:bg-red-600 font-semibold shadow-[0_0_40px_rgba(239,68,68,0.4)] hover:shadow-[0_0_60px_rgba(239,68,68,0.6)] transition-all disabled:opacity-60"
+              className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-brand-red hover:bg-red-600 font-semibold transition-all disabled:opacity-60"
             >
               {status === "loading" ? (
                 <>

@@ -130,7 +130,7 @@
 }
 
 .glow-hover {
-  transition: all 0.3s ease;
+  transition: filter 0.3s ease, transform 0.3s ease;
 }
 
 .glow-hover:hover {
