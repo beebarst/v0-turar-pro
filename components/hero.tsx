@@ -10,10 +10,10 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative min-h-[100svh] flex items-center pt-24 pb-16 px-4 sm:px-6 lg:px-8"
+      className="relative min-h-[100svh] flex items-center pt-24 pb-16 px-4"
     >
       <div className="mx-auto max-w-5xl w-full text-center">
-        <h1 className="text-balance text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05]">
+        <h1 className="text-balance text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight">
           Твое лучшее видео <span className="text-brand-red">начинается здесь</span>
         </h1>
 

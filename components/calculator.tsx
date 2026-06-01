@@ -73,19 +73,19 @@ export function Calculator() {
   return (
     <section
       id="calculator"
-      className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 scroll-mt-20"
+      className="py-20 md:py-28 px-4 scroll-mt-20"
     >
       <div className="mx-auto max-w-7xl">
         <div className="text-center mb-12">
           <div className="text-brand-red font-semibold tracking-wider text-sm uppercase mb-3">
             Калькулятор
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-balance">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-balance leading-tight">
             Соберите свой проект — <br className="sm:hidden" />
             <span className="text-brand-red">цена пересчитается мгновенно</span>
           </h2>
           <p className="mt-4 text-white/60 max-w-xl mx-auto">
-            Все цены уже отображаются со скидкой 15%. Базовая стоимость зачёркнута.
+            Все цены уже отображаются со скидкой 40%. Базовая стоимость зачёркнута.
           </p>
         </div>
 
@@ -224,7 +224,7 @@ export function Calculator() {
                     <ShoppingBag className="h-6 w-6 text-white/30" />
                   </div>
                   <p className="text-white/50 text-sm">
-                    Выберите услуги слева — они появятся здесь со скидкой 15%.
+                    Выберите услуги слева — они появятся здесь со скидкой 40%.
                   </p>
                 </div>
               ) : (

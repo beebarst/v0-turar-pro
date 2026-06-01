@@ -135,7 +135,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   },
 ]
 
-export const DISCOUNT = 0.15
+export const DISCOUNT = 0.40
 
 export const formatPrice = (price: number) =>
   new Intl.NumberFormat("ru-RU").format(Math.round(price)) + " ₸"

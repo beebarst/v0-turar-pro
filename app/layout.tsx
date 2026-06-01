@@ -10,9 +10,9 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "TURAR.PRO — Видеопроизводство полного цикла | Бибарыс Тұрар",
+  title: "Видеограф в Костанае | Съемка свадеб, Reels, SMM — Бибарыс Тұрар",
   description:
-    "Свадьбы, мероприятия, Reels и бизнес-видео. Рассчитайте стоимость проекта за 1 минуту. Скидка 15% действует ограниченное время.",
+    "Профессиональное видеопроизводство полного цикла в Костанае. Love story, промо-ролики для бизнеса, монтаж и SMM. Интерактивный калькулятор.",
   generator: "v0.app",
 }
 
@@ -29,6 +29,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" className={`${inter.variable} bg-background dark`}>
+      <head>
+        {/* META PIXEL: ТВОЙ_ID_ПИКСЕЛЯ_ЗДЕСЬ */}
+      </head>
       <body className="font-sans antialiased bg-transparent text-white overflow-x-hidden">
         {children}
         {process.env.NODE_ENV === "production" && <Analytics />}
