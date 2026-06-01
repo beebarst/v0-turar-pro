@@ -36,8 +36,8 @@ export function FloatingBadge() {
             <Flame className="h-5 w-5 md:h-7 md:w-7 text-yellow-400" />
           </div>
           <div className="leading-tight">
-            <div className="text-yellow-400 font-bold text-base md:text-2xl tracking-tight">
-              Скидка 15% сгорит через
+            <div className="text-yellow-400 font-bold text-base md:text-2xl tracking-tight text-balance leading-tight">
+              Скидка 40% сгорит через
             </div>
             <div className="text-yellow-400 font-mono font-black text-2xl md:text-4xl tabular-nums tracking-wider mt-0.5">
               {mm}:{ss}
