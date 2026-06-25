@@ -135,6 +135,32 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   },
 ]
 
+export type PortfolioCategory = "wedding" | "events" | "social" | "business"
+
+export type PortfolioItem = {
+  id: string
+  title: string
+  category: PortfolioCategory
+  tag: string
+  /** Optional cover image URL (from Sanity). Falls back to gradient when absent. */
+  image?: string | null
+  /** Optional CSS gradient used when there's no image. */
+  thumb?: string
+  /** Optional link to the video. */
+  videoUrl?: string | null
+}
+
+export const PORTFOLIO_ITEMS: PortfolioItem[] = [
+  { id: "1", title: "Айдана & Ержан", category: "wedding", tag: "Свадебный фильм", thumb: "linear-gradient(135deg,#1a0a0a,#3a1a1a)" },
+  { id: "2", title: "Aftermovie · Almaty Night", category: "events", tag: "Aftermovie", thumb: "linear-gradient(135deg,#0a0a1a,#1a1a3a)" },
+  { id: "3", title: "Reels Pack · Beauty", category: "social", tag: "Reels серия", thumb: "linear-gradient(135deg,#1a0a1a,#3a1a3a)" },
+  { id: "4", title: "Promo · Auto Salon", category: "business", tag: "Промо-ролик", thumb: "linear-gradient(135deg,#0a1a0a,#1a3a1a)" },
+  { id: "5", title: "Love Story · Kapchagai", category: "wedding", tag: "Love Story", thumb: "linear-gradient(135deg,#1a1a0a,#3a3a1a)" },
+  { id: "6", title: "Корпоратив · KazTech", category: "events", tag: "Репортаж", thumb: "linear-gradient(135deg,#0a1a1a,#1a3a3a)" },
+  { id: "7", title: "TikTok · Food Brand", category: "social", tag: "Вертикаль", thumb: "linear-gradient(135deg,#1a0a0a,#2a1a2a)" },
+  { id: "8", title: "Бренд · Fitness Club", category: "business", tag: "SMM-пакет", thumb: "linear-gradient(135deg,#0a0a0a,#2a2a2a)" },
+]
+
 export const DISCOUNT = 0.40
 
 export const formatPrice = (price: number) =>

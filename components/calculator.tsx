@@ -3,19 +3,19 @@
 import { useMemo, useState } from "react"
 import { ChevronDown, Plus, Minus, Check, Trash2, ShoppingBag, Heart, GlassWater, Smartphone, Briefcase } from "lucide-react"
 import {
-  SERVICE_CATEGORIES,
   DISCOUNT,
   formatPrice,
   type Service,
+  type ServiceCategory,
 } from "@/lib/services-data"
 import { AnimatedNumber } from "./animated-number"
 import { OrderModal, type SelectedItem } from "./order-modal"
 
 type Selection = Record<string, number> // serviceId -> qty (1 = selected, or hours for hourly)
 
-export function Calculator() {
+export function Calculator({ categories }: { categories: ServiceCategory[] }) {
   const [openCats, setOpenCats] = useState<Record<string, boolean>>({
-    wedding: true,
+    [categories[0]?.id ?? "wedding"]: true,
   })
   const [selection, setSelection] = useState<Selection>({})
   const [modalOpen, setModalOpen] = useState(false)
@@ -24,8 +24,8 @@ export function Calculator() {
     setOpenCats((s) => ({ ...s, [id]: !s[id] }))
 
   const allServices = useMemo(
-    () => SERVICE_CATEGORIES.flatMap((c) => c.services),
-    [],
+    () => categories.flatMap((c) => c.services),
+    [categories],
   )
 
   const toggleService = (s: Service) => {
@@ -92,7 +92,7 @@ export function Calculator() {
         <div className="grid lg:grid-cols-[1fr_400px] gap-6 lg:gap-8 items-start">
           {/* Services list */}
           <div className="space-y-3">
-            {SERVICE_CATEGORIES.map((cat) => (
+            {categories.map((cat) => (
               <div
                 key={cat.id}
                 className="rounded-2xl border border-white/5 bg-white/[0.02] backdrop-blur-sm overflow-hidden"

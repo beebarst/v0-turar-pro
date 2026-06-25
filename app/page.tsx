@@ -4,8 +4,14 @@ import { Portfolio } from "@/components/portfolio"
 import { Calculator } from "@/components/calculator"
 import { ContactFooter } from "@/components/contact-footer"
 import { FloatingBadge } from "@/components/floating-badge"
+import { getServiceCategories, getPortfolioItems } from "@/sanity/lib/fetch"
 
-export default function Page() {
+export default async function Page() {
+  const [categories, portfolioItems] = await Promise.all([
+    getServiceCategories(),
+    getPortfolioItems(),
+  ])
+
   return (
     <main className="relative min-h-screen text-white bg-transparent">
       {/* Fixed background with studio glow effect */}
@@ -15,8 +21,8 @@ export default function Page() {
       </div>
       <SiteHeader />
       <Hero />
-      <Portfolio />
-      <Calculator />
+      <Portfolio items={portfolioItems} />
+      <Calculator categories={categories} />
       <ContactFooter />
       <FloatingBadge />
     </main>

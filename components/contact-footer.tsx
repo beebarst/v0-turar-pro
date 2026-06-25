@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Loader2, CheckCircle2 } from "lucide-react"
 import { SOCIAL_LINKS, sendToTelegram } from "@/lib/services-data"
+import { trackLead } from "@/lib/fbpixel"
 
 // Real SVG icons for social media
 function WhatsAppIcon({ className }: { className?: string }) {
@@ -41,6 +42,7 @@ export function ContactFooter() {
       await sendToTelegram(
         `📞 <b>Запрос консультации с TURAR.PRO</b>\n\n<b>Телефон:</b> ${phone}`,
       )
+      trackLead({ content_name: "Consultation form" })
       setStatus("success")
       setPhone("")
       setTimeout(() => setStatus("idle"), 4000)

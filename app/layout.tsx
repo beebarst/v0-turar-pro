@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { MetaPixel } from "@/components/meta-pixel"
 import "./globals.css"
 
 const inter = Inter({
@@ -29,10 +30,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" className={`${inter.variable} bg-background dark`}>
-      <head>
-        {/* META PIXEL: ТВОЙ_ID_ПИКСЕЛЯ_ЗДЕСЬ */}
-      </head>
       <body className="font-sans antialiased bg-transparent text-white overflow-x-hidden">
+        <MetaPixel />
         {children}
         {process.env.NODE_ENV === "production" && <Analytics />}
       </body>

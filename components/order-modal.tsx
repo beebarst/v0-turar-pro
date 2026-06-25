@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react"
 import { X, Loader2, CheckCircle2 } from "lucide-react"
-import { sendToTelegram, formatPrice } from "@/lib/services-data"
+import { sendToTelegram, formatPrice, DISCOUNT } from "@/lib/services-data"
+import { trackLead } from "@/lib/fbpixel"
 
 export type SelectedItem = {
   id: string
@@ -47,9 +48,10 @@ export function OrderModal({
       `👤 <b>Имя:</b> ${name}\n` +
       `📞 <b>Телефон:</b> ${phone}\n\n` +
       `<b>Выбранные услуги:</b>\n${lines}\n\n` +
-      `💰 <b>Итого со скидкой 15%:</b> ${formatPrice(total)}`
+      `💰 <b>Итого со скидкой ${Math.round(DISCOUNT * 100)}%:</b> ${formatPrice(total)}`
     try {
       await sendToTelegram(text)
+      trackLead({ content_name: "Order form", value: total, currency: "KZT" })
       setStatus("success")
       setName("")
       setPhone("")

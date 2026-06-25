@@ -2,25 +2,7 @@
 
 import { useState } from "react"
 import { Play } from "lucide-react"
-
-type Item = {
-  id: number
-  title: string
-  category: "wedding" | "events" | "social" | "business"
-  tag: string
-  thumb: string
-}
-
-const ITEMS: Item[] = [
-  { id: 1, title: "Айдана & Ержан", category: "wedding", tag: "Свадебный фильм", thumb: "linear-gradient(135deg,#1a0a0a,#3a1a1a)" },
-  { id: 2, title: "Aftermovie · Almaty Night", category: "events", tag: "Aftermovie", thumb: "linear-gradient(135deg,#0a0a1a,#1a1a3a)" },
-  { id: 3, title: "Reels Pack · Beauty", category: "social", tag: "Reels серия", thumb: "linear-gradient(135deg,#1a0a1a,#3a1a3a)" },
-  { id: 4, title: "Promo · Auto Salon", category: "business", tag: "Промо-ролик", thumb: "linear-gradient(135deg,#0a1a0a,#1a3a1a)" },
-  { id: 5, title: "Love Story · Kapchagai", category: "wedding", tag: "Love Story", thumb: "linear-gradient(135deg,#1a1a0a,#3a3a1a)" },
-  { id: 6, title: "Корпоратив · KazTech", category: "events", tag: "Репортаж", thumb: "linear-gradient(135deg,#0a1a1a,#1a3a3a)" },
-  { id: 7, title: "TikTok · Food Brand", category: "social", tag: "Вертикаль", thumb: "linear-gradient(135deg,#1a0a0a,#2a1a2a)" },
-  { id: 8, title: "Бренд · Fitness Club", category: "business", tag: "SMM-пакет", thumb: "linear-gradient(135deg,#0a0a0a,#2a2a2a)" },
-]
+import { type PortfolioItem } from "@/lib/services-data"
 
 const FILTERS = [
   { id: "all", label: "Все" },
@@ -30,9 +12,9 @@ const FILTERS = [
   { id: "business", label: "Бизнес" },
 ] as const
 
-export function Portfolio() {
+export function Portfolio({ items }: { items: PortfolioItem[] }) {
   const [filter, setFilter] = useState<(typeof FILTERS)[number]["id"]>("all")
-  const filtered = filter === "all" ? ITEMS : ITEMS.filter((i) => i.category === filter)
+  const filtered = filter === "all" ? items : items.filter((i) => i.category === filter)
 
   return (
     <section id="portfolio" className="py-20 md:py-28 px-4 sm:px-6 lg:px-8">
@@ -65,28 +47,41 @@ export function Portfolio() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          {filtered.map((item, idx) => (
-            <div
-              key={item.id}
-              className={`group relative aspect-video rounded-2xl overflow-hidden border border-white/5 cursor-pointer ${
-                idx === 0 ? "lg:col-span-2 lg:row-span-2 lg:aspect-auto lg:min-h-[420px]" : ""
-              }`}
-              style={{ background: item.thumb }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="h-14 w-14 md:h-16 md:w-16 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center group-hover:scale-110 group-hover:bg-brand-red transition-all duration-300">
-                  <Play className="h-6 w-6 text-white ml-1" fill="currentColor" />
+          {filtered.map((item, idx) => {
+            const Wrapper = item.videoUrl ? "a" : "div"
+            return (
+              <Wrapper
+                key={item.id}
+                {...(item.videoUrl
+                  ? { href: item.videoUrl, target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+                className={`group relative aspect-video rounded-2xl overflow-hidden border border-white/5 cursor-pointer block ${
+                  idx === 0 ? "lg:col-span-2 lg:row-span-2 lg:aspect-auto lg:min-h-[420px]" : ""
+                }`}
+                style={item.image ? undefined : { background: item.thumb }}
+              >
+                {item.image && (
+                  <img
+                    src={item.image || "/placeholder.svg"}
+                    alt={item.title}
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="h-14 w-14 md:h-16 md:w-16 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center group-hover:scale-110 group-hover:bg-brand-red transition-all duration-300">
+                    <Play className="h-6 w-6 text-white ml-1" fill="currentColor" />
+                  </div>
                 </div>
-              </div>
-              <div className="absolute bottom-0 left-0 right-0 p-5">
-                <div className="text-xs uppercase tracking-wider text-brand-red font-semibold mb-1">
-                  {item.tag}
+                <div className="absolute bottom-0 left-0 right-0 p-5">
+                  <div className="text-xs uppercase tracking-wider text-brand-red font-semibold mb-1">
+                    {item.tag}
+                  </div>
+                  <div className="text-white font-semibold text-lg">{item.title}</div>
                 </div>
-                <div className="text-white font-semibold text-lg">{item.title}</div>
-              </div>
-            </div>
-          ))}
+              </Wrapper>
+            )
+          })}
         </div>
       </div>
     </section>
