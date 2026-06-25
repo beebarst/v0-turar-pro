@@ -29,11 +29,12 @@ export default defineConfig({
         : prev,
   },
   plugins: [
-    structureTool({
+structureTool({
       structure: (S) =>
         S.list()
           .title("Контент")
           .items([
+            // 1. Пункт "Глобальные настройки" (твой текущий)
             S.listItem()
               .title("Глобальные настройки")
               .id("globalSettings")
@@ -42,7 +43,11 @@ export default defineConfig({
                   .schemaType("globalSettings")
                   .documentId(GLOBAL_SETTINGS_ID),
               ),
+            
+            // 2. Добавляем "Услуги"
+            S.documentTypeListItem("service").title("Услуги"),
+
+            // 3. Добавляем "Портфолио"
+            S.documentTypeListItem("portfolio").title("Портфолио"),
           ]),
     }),
-  ],
-})
