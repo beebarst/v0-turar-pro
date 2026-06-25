@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { Phone } from "lucide-react"
-import { SOCIAL_LINKS } from "@/lib/services-data"
+import { DEFAULT_SETTINGS, type ResolvedSettings } from "@/lib/sanity/types"
 
 // Real SVG icons for social media (matching footer)
 function WhatsAppIcon({ className }: { className?: string }) {
@@ -29,7 +29,8 @@ function InstagramIcon({ className }: { className?: string }) {
   )
 }
 
-export function SiteHeader() {
+export function SiteHeader({ settings = DEFAULT_SETTINGS }: { settings?: ResolvedSettings }) {
+  const social = settings.social
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -59,15 +60,15 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-2 md:gap-5">
           <a
-            href={`tel:${SOCIAL_LINKS.phoneRaw}`}
+            href={`tel:${social.phoneRaw}`}
             className="hidden sm:flex items-center gap-2 text-sm md:text-base text-white/90 hover:text-brand-red transition-colors"
           >
             <Phone className="h-4 w-4" />
-            <span className="font-medium">{SOCIAL_LINKS.phone}</span>
+            <span className="font-medium">{social.phone}</span>
           </a>
           <div className="flex items-center gap-1 md:gap-2">
             <a
-              href={SOCIAL_LINKS.whatsapp}
+              href={social.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp"
@@ -76,7 +77,7 @@ export function SiteHeader() {
               <WhatsAppIcon className="h-5 w-5" />
             </a>
             <a
-              href={SOCIAL_LINKS.telegram}
+              href={social.telegram}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Telegram"
@@ -85,7 +86,7 @@ export function SiteHeader() {
               <TelegramIcon className="h-5 w-5" />
             </a>
             <a
-              href={SOCIAL_LINKS.instagram}
+              href={social.instagram}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"

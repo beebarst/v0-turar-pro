@@ -17,11 +17,13 @@ export function OrderModal({
   onClose,
   items,
   total,
+  discountPercent = 40,
 }: {
   open: boolean
   onClose: () => void
   items: SelectedItem[]
   total: number
+  discountPercent?: number
 }) {
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
@@ -47,7 +49,7 @@ export function OrderModal({
       `👤 <b>Имя:</b> ${name}\n` +
       `📞 <b>Телефон:</b> ${phone}\n\n` +
       `<b>Выбранные услуги:</b>\n${lines}\n\n` +
-      `💰 <b>Итого со скидкой 15%:</b> ${formatPrice(total)}`
+      `💰 <b>Итого со скидкой ${discountPercent}%:</b> ${formatPrice(total)}`
     try {
       await sendToTelegram(text)
       setStatus("success")

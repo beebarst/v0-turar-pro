@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { Flame } from "lucide-react"
 
-export function FloatingBadge() {
+export function FloatingBadge({ discountPercent = 40 }: { discountPercent?: number }) {
   const [seconds, setSeconds] = useState(60 * 60)
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export function FloatingBadge() {
           </div>
           <div className="leading-tight">
             <div className="text-yellow-400 font-bold text-base md:text-2xl tracking-tight text-balance leading-tight">
-              Скидка 40% сгорит через
+              Скидка {discountPercent}% сгорит через
             </div>
             <div className="text-yellow-400 font-mono font-black text-2xl md:text-4xl tabular-nums tracking-wider mt-0.5">
               {mm}:{ss}
