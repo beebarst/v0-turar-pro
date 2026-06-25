@@ -2,7 +2,8 @@
 
 import { useState } from "react"
 import { Loader2, CheckCircle2 } from "lucide-react"
-import { SOCIAL_LINKS, sendToTelegram } from "@/lib/services-data"
+import { sendToTelegram } from "@/lib/services-data"
+import { DEFAULT_SETTINGS, type ResolvedSettings } from "@/lib/sanity/types"
 
 // Real SVG icons for social media
 function WhatsAppIcon({ className }: { className?: string }) {
@@ -29,7 +30,8 @@ function InstagramIcon({ className }: { className?: string }) {
   )
 }
 
-export function ContactFooter() {
+export function ContactFooter({ settings = DEFAULT_SETTINGS }: { settings?: ResolvedSettings }) {
+  const social = settings.social
   const [phone, setPhone] = useState("")
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
 
@@ -108,7 +110,7 @@ export function ContactFooter() {
         {/* Center: large social icons */}
         <div className="mt-20 md:mt-24 flex items-center justify-center gap-8 md:gap-16">
           <a
-            href={SOCIAL_LINKS.whatsapp}
+            href={social.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="WhatsApp"
@@ -118,7 +120,7 @@ export function ContactFooter() {
             <span className="text-xs text-white/50">WhatsApp</span>
           </a>
           <a
-            href={SOCIAL_LINKS.telegram}
+            href={social.telegram}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Telegram"
@@ -128,7 +130,7 @@ export function ContactFooter() {
             <span className="text-xs text-white/50">Telegram</span>
           </a>
           <a
-            href={SOCIAL_LINKS.instagram}
+            href={social.instagram}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram"
@@ -145,10 +147,10 @@ export function ContactFooter() {
             Прямой звонок
           </div>
           <a
-            href={`tel:${SOCIAL_LINKS.phoneRaw}`}
+            href={`tel:${social.phoneRaw}`}
             className="inline-block text-3xl sm:text-4xl md:text-5xl font-black tracking-tight hover:text-brand-red transition-colors"
           >
-            {SOCIAL_LINKS.phone}
+            {social.phone}
           </a>
         </div>
 

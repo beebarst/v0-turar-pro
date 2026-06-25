@@ -4,16 +4,19 @@ import { useMemo, useState } from "react"
 import { ChevronDown, Plus, Minus, Check, Trash2, ShoppingBag, Heart, GlassWater, Smartphone, Briefcase } from "lucide-react"
 import {
   SERVICE_CATEGORIES,
-  DISCOUNT,
   formatPrice,
   type Service,
 } from "@/lib/services-data"
+import { DEFAULT_SETTINGS, type ResolvedSettings } from "@/lib/sanity/types"
 import { AnimatedNumber } from "./animated-number"
 import { OrderModal, type SelectedItem } from "./order-modal"
 
 type Selection = Record<string, number> // serviceId -> qty (1 = selected, or hours for hourly)
 
-export function Calculator() {
+export function Calculator({ settings = DEFAULT_SETTINGS }: { settings?: ResolvedSettings }) {
+  // Discount fraction from Sanity GlobalSettings (fallback 40% via DEFAULT_SETTINGS).
+  const discount = settings.discount
+  const discountPercent = settings.discountPercent
   const [openCats, setOpenCats] = useState<Record<string, boolean>>({
     wedding: true,
   })
@@ -52,7 +55,7 @@ export function Calculator() {
   const selectedItems: SelectedItem[] = useMemo(() => {
     return Object.entries(selection).map(([id, qty]) => {
       const svc = allServices.find((s) => s.id === id)!
-      const unitDiscounted = svc.basePrice * (1 - DISCOUNT)
+      const unitDiscounted = svc.basePrice * (1 - discount)
       return {
         id,
         title: svc.title + (svc.hourly ? ` (${qty} ч)` : ""),
@@ -61,7 +64,7 @@ export function Calculator() {
         totalDiscounted: unitDiscounted * qty,
       }
     })
-  }, [selection, allServices])
+  }, [selection, allServices, discount])
 
   const totalBase = selectedItems.reduce((sum, i) => {
     const svc = allServices.find((s) => s.id === i.id)!
@@ -85,7 +88,7 @@ export function Calculator() {
             <span className="text-brand-red">цена пересчитается мгновенно</span>
           </h2>
           <p className="mt-4 text-white/60 max-w-xl mx-auto">
-            Все цены уже отображаются со скидкой 40%. Базовая стоимость зачёркнута.
+            Все цены уже отображаются со скидкой {discountPercent}%. Базовая стоимость зачёркнута.
           </p>
         </div>
 
@@ -120,7 +123,7 @@ export function Calculator() {
                     {cat.services.map((s) => {
                       const isSelected = !!selection[s.id]
                       const qty = selection[s.id] ?? 1
-                      const discounted = s.basePrice * (1 - DISCOUNT)
+                      const discounted = s.basePrice * (1 - discount)
 
                       return (
                         <div
@@ -224,7 +227,7 @@ export function Calculator() {
                     <ShoppingBag className="h-6 w-6 text-white/30" />
                   </div>
                   <p className="text-white/50 text-sm">
-                    Выберите услуги слева — они появятся здесь со скидкой 40%.
+                    Выберите услуги слева — они появятся здесь со скидкой {discountPercent}%.
                   </p>
                 </div>
               ) : (
@@ -297,6 +300,7 @@ export function Calculator() {
         onClose={() => setModalOpen(false)}
         items={selectedItems}
         total={totalDiscounted}
+        discountPercent={discountPercent}
       />
     </section>
   )
