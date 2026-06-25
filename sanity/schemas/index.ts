@@ -1,7 +1,9 @@
 import { globalSettings } from "./global-settings"
+import { service } from "./service"
+import { portfolio } from "./portfolio"
 
-/**
- * All Sanity document/object schemas for the project.
- * Register new schema types here so the Studio picks them up.
- */
-export const schemaTypes = [globalSettings]
+export const schemaTypes = [
+  globalSettings,
+  service,
+  portfolio,
+]
