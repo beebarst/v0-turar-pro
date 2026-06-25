@@ -3,7 +3,7 @@ import { structureTool } from "sanity/structure"
 import { schemaTypes } from "./sanity/schemas"
 import { GLOBAL_SETTINGS_ID } from "./lib/sanity/queries"
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || ""
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "f0a0r6yn"
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production"
 
 /**
@@ -29,7 +29,7 @@ export default defineConfig({
         : prev,
   },
   plugins: [
-structureTool({
+    structureTool({
       structure: (S) =>
         S.list()
           .title("Контент")
@@ -51,3 +51,5 @@ structureTool({
             S.documentTypeListItem("portfolio").title("Портфолио"),
           ]),
     }),
+  ],
+})

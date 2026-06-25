@@ -1,6 +1,8 @@
 import { createClient, type SanityClient } from "next-sanity"
 
-export const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
+// Public, non-secret Sanity values. We default to the known project so the
+// site keeps working even if the NEXT_PUBLIC_* env vars are not set.
+export const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "f0a0r6yn"
 export const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production"
 export const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2024-01-01"
 
