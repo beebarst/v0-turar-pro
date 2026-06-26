@@ -2,7 +2,16 @@
 
 import { useEffect, useState } from "react"
 import { X, Loader2, CheckCircle2 } from "lucide-react"
-import { sendToTelegram, formatPrice } from "@/lib/services-data"
+import { formatPrice } from "@/lib/services-data"
+
+async function sendToTelegram(text: string) {
+  const res = await fetch("/api/telegram", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text }),
+  })
+  if (!res.ok) throw new Error("TG send failed")
+}
 
 export type SelectedItem = {
   id: string
