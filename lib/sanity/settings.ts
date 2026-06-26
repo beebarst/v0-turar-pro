@@ -1,5 +1,5 @@
 import "server-only"
-import { sanityClient } from "./client"
+import { getSanityClient } from "./client"
 import { GLOBAL_SETTINGS_ID, globalSettingsQuery, globalSettingsFallbackQuery } from "./queries"
 import { type GlobalSettings, type ResolvedSettings, resolveSettings } from "./types"
 
@@ -8,6 +8,7 @@ export type { GlobalSettings, ResolvedSettings } from "./types"
 
 /** Fetch the raw GlobalSettings document from Sanity (or null if unavailable). */
 export async function getGlobalSettings(): Promise<GlobalSettings | null> {
+  const sanityClient = getSanityClient()
   if (!sanityClient) return null
   try {
     let data = await sanityClient.fetch<GlobalSettings | null>(
