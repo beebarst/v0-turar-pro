@@ -51,3 +51,5 @@ structureTool({
             S.documentTypeListItem("portfolio").title("Портфолио"),
           ]),
     }),
+  ],
+})
