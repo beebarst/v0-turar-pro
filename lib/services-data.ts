@@ -148,20 +148,4 @@ export const SOCIAL_LINKS = {
   phoneRaw: "+77761001066",
 }
 
-export const TG_BOT_TOKEN = "8641390313:AAEfrd7FvzT8OfLTCERG1KYRfPD7kdUjZxY"
-export const TG_CHAT_ID = "425989373"
 
-export async function sendToTelegram(text: string) {
-  const url = `https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`
-  const res = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: TG_CHAT_ID,
-      text,
-      parse_mode: "HTML",
-    }),
-  })
-  if (!res.ok) throw new Error("TG send failed")
-  return res.json()
-}

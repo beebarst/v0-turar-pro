@@ -2,8 +2,16 @@
 
 import { useState } from "react"
 import { Loader2, CheckCircle2 } from "lucide-react"
-import { sendToTelegram } from "@/lib/services-data"
 import { DEFAULT_SETTINGS, type ResolvedSettings } from "@/lib/sanity/types"
+
+async function sendToTelegram(text: string) {
+  const res = await fetch("/api/telegram", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text }),
+  })
+  if (!res.ok) throw new Error("TG send failed")
+}
 
 // Real SVG icons for social media
 function WhatsAppIcon({ className }: { className?: string }) {
@@ -156,7 +164,7 @@ export function ContactFooter({ settings = DEFAULT_SETTINGS }: { settings?: Reso
 
         {/* Bottom */}
         <div className="mt-20 md:mt-24 pt-8 border-t border-white/5 text-center text-sm text-white/40">
-          © 2026 Бибарыс Тұрар. Все права защищены.
+          © 2026 Бибарыс Тұрар. Все права защище��ы.
         </div>
       </div>
 
