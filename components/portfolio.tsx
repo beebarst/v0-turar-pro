@@ -2,25 +2,7 @@
 
 import { useState } from "react"
 import { Play } from "lucide-react"
-
-type Item = {
-  id: number
-  title: string
-  category: "wedding" | "events" | "social" | "business"
-  tag: string
-  thumb: string
-}
-
-const ITEMS: Item[] = [
-  { id: 1, title: "Айдана & Ержан", category: "wedding", tag: "Свадебный фильм", thumb: "linear-gradient(135deg,#1a0a0a,#3a1a1a)" },
-  { id: 2, title: "Aftermovie · Almaty Night", category: "events", tag: "Aftermovie", thumb: "linear-gradient(135deg,#0a0a1a,#1a1a3a)" },
-  { id: 3, title: "Reels Pack · Beauty", category: "social", tag: "Reels серия", thumb: "linear-gradient(135deg,#1a0a1a,#3a1a3a)" },
-  { id: 4, title: "Promo · Auto Salon", category: "business", tag: "Промо-ролик", thumb: "linear-gradient(135deg,#0a1a0a,#1a3a1a)" },
-  { id: 5, title: "Love Story · Kapchagai", category: "wedding", tag: "Love Story", thumb: "linear-gradient(135deg,#1a1a0a,#3a3a1a)" },
-  { id: 6, title: "Корпоратив · KazTech", category: "events", tag: "Репортаж", thumb: "linear-gradient(135deg,#0a1a1a,#1a3a3a)" },
-  { id: 7, title: "TikTok · Food Brand", category: "social", tag: "Вертикаль", thumb: "linear-gradient(135deg,#1a0a0a,#2a1a2a)" },
-  { id: 8, title: "Бренд · Fitness Club", category: "business", tag: "SMM-пакет", thumb: "linear-gradient(135deg,#0a0a0a,#2a2a2a)" },
-]
+import type { PortfolioItem } from "@/lib/kv/client"
 
 const FILTERS = [
   { id: "all", label: "Все" },
@@ -30,9 +12,13 @@ const FILTERS = [
   { id: "business", label: "Бизнес" },
 ] as const
 
-export function Portfolio() {
+interface PortfolioProps {
+  items: PortfolioItem[]
+}
+
+export function Portfolio({ items }: PortfolioProps) {
   const [filter, setFilter] = useState<(typeof FILTERS)[number]["id"]>("all")
-  const filtered = filter === "all" ? ITEMS : ITEMS.filter((i) => i.category === filter)
+  const filtered = filter === "all" ? items : items.filter((i) => i.category === filter)
 
   return (
     <section id="portfolio" className="py-20 md:py-28 px-4 sm:px-6 lg:px-8">
@@ -68,10 +54,14 @@ export function Portfolio() {
           {filtered.map((item, idx) => (
             <div
               key={item.id}
-              className={`group relative aspect-video rounded-2xl overflow-hidden border border-white/5 cursor-pointer ${
+              className={`group relative aspect-video rounded-2xl overflow-hidden border border-white/5 cursor-pointer bg-gradient-to-br from-neutral-900 to-neutral-800 ${
                 idx === 0 ? "lg:col-span-2 lg:row-span-2 lg:aspect-auto lg:min-h-[420px]" : ""
               }`}
-              style={{ background: item.thumb }}
+              style={
+                item.imageUrl
+                  ? { backgroundImage: `url('${item.imageUrl}')`, backgroundSize: "cover", backgroundPosition: "center" }
+                  : {}
+              }
             >
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               <div className="absolute inset-0 flex items-center justify-center">

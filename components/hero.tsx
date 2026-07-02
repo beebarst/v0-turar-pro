@@ -1,8 +1,13 @@
 "use client"
 
 import { ArrowDown, Play } from "lucide-react"
+import type { Settings } from "@/lib/kv/client"
 
-export function Hero() {
+interface HeroProps {
+  settings: Settings
+}
+
+export function Hero({ settings }: HeroProps) {
   const scrollToCalc = () => {
     document.getElementById("calculator")?.scrollIntoView({ behavior: "smooth" })
   }
@@ -14,11 +19,11 @@ export function Hero() {
     >
       <div className="mx-auto max-w-5xl w-full text-center">
         <h1 className="text-balance text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight">
-          Твое лучшее видео <span className="text-brand-red">начинается здесь</span>
+          {settings.heroHeading} <span className="text-brand-red">начинается здесь</span>
         </h1>
 
         <p className="mt-6 md:mt-8 text-pretty text-lg md:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed">
-          Собери свой проект в калькуляторе и успей забронировать дату
+          {settings.heroSubheading}
         </p>
 
         <div className="mt-10 flex flex-col sm:flex-row gap-3 items-center justify-center">
@@ -26,7 +31,7 @@ export function Hero() {
             onClick={scrollToCalc}
             className="group relative inline-flex items-center gap-2 px-8 py-4 rounded-full bg-brand-red text-white font-semibold text-base md:text-lg hover:bg-red-600 transition-all duration-300"
           >
-            Рассчитать стоимость
+            {settings.heroCtaPrimary}
             <ArrowDown className="h-5 w-5 group-hover:translate-y-0.5 transition-transform" />
           </button>
           <a
@@ -34,19 +39,15 @@ export function Hero() {
             className="inline-flex items-center gap-2 px-6 py-4 rounded-full border border-white/15 hover:border-white/30 text-white/80 hover:text-white transition-colors"
           >
             <Play className="h-4 w-4" />
-            Смотреть портфолио
+            {settings.heroCtaSecondary}
           </a>
         </div>
 
         <div className="mt-16 grid grid-cols-3 gap-4 max-w-xl mx-auto">
-          {[
-            { v: "150+", l: "Проектов" },
-            { v: "8 лет", l: "Опыта" },
-            { v: "48ч", l: "Сроки сдачи" },
-          ].map((s) => (
-            <div key={s.l} className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-white">{s.v}</div>
-              <div className="text-xs md:text-sm text-white/50 mt-1">{s.l}</div>
+          {settings.heroStats.map((stat) => (
+            <div key={stat.label} className="text-center">
+              <div className="text-2xl md:text-3xl font-bold text-white">{stat.value}</div>
+              <div className="text-xs md:text-sm text-white/50 mt-1">{stat.label}</div>
             </div>
           ))}
         </div>

@@ -2,21 +2,39 @@
 
 import { useMemo, useState } from "react"
 import { ChevronDown, Plus, Minus, Check, Trash2, ShoppingBag, Heart, GlassWater, Smartphone, Briefcase } from "lucide-react"
-import {
-  SERVICE_CATEGORIES,
-  formatPrice,
-  type Service,
-} from "@/lib/services-data"
-import { DEFAULT_SETTINGS, type ResolvedSettings } from "@/lib/sanity/types"
 import { AnimatedNumber } from "./animated-number"
 import { OrderModal, type SelectedItem } from "./order-modal"
+import type { Service, Settings } from "@/lib/kv/client"
 
 type Selection = Record<string, number> // serviceId -> qty (1 = selected, or hours for hourly)
 
-export function Calculator({ settings = DEFAULT_SETTINGS }: { settings?: ResolvedSettings }) {
-  // Discount fraction from Sanity GlobalSettings (fallback 40% via DEFAULT_SETTINGS).
-  const discount = settings.discount
-  const discountPercent = settings.discountPercent
+const CATEGORY_ICONS: Record<string, React.ReactNode> = {
+  wedding: <Heart className="h-5 w-5 text-brand-red shrink-0" />,
+  events: <GlassWater className="h-5 w-5 text-brand-red shrink-0" />,
+  social: <Smartphone className="h-5 w-5 text-brand-red shrink-0" />,
+  business: <Briefcase className="h-5 w-5 text-brand-red shrink-0" />,
+}
+
+const CATEGORY_LABELS: Record<string, string> = {
+  wedding: "Свадебные истории",
+  events: "Торжественные мероприятия",
+  social: "Соцсети и Блоги",
+  business: "Бизнес и Бренды",
+}
+
+function formatPrice(price: number) {
+  return new Intl.NumberFormat("ru-RU").format(Math.round(price)) + " ₸"
+}
+
+interface CalculatorProps {
+  settings: Settings
+  services: Service[]
+}
+
+export function Calculator({ settings, services }: CalculatorProps) {
+  // Discount fraction from settings (fallback 40%).
+  const discount = settings.discountPercent
+  const discountPercent = Math.round(settings.discountPercent * 100)
   const [openCats, setOpenCats] = useState<Record<string, boolean>>({
     wedding: true,
   })
@@ -25,11 +43,6 @@ export function Calculator({ settings = DEFAULT_SETTINGS }: { settings?: Resolve
 
   const toggleCat = (id: string) =>
     setOpenCats((s) => ({ ...s, [id]: !s[id] }))
-
-  const allServices = useMemo(
-    () => SERVICE_CATEGORIES.flatMap((c) => c.services),
-    [],
-  )
 
   const toggleService = (s: Service) => {
     setSelection((sel) => {
@@ -54,8 +67,8 @@ export function Calculator({ settings = DEFAULT_SETTINGS }: { settings?: Resolve
 
   const selectedItems: SelectedItem[] = useMemo(() => {
     return Object.entries(selection).map(([id, qty]) => {
-      const svc = allServices.find((s) => s.id === id)!
-      const unitDiscounted = svc.basePrice * (1 - discount)
+      const svc = services.find((s) => s.id === id)!
+      const unitDiscounted = svc.price * (1 - discount)
       return {
         id,
         title: svc.title + (svc.hourly ? ` (${qty} ч)` : ""),
@@ -64,14 +77,33 @@ export function Calculator({ settings = DEFAULT_SETTINGS }: { settings?: Resolve
         totalDiscounted: unitDiscounted * qty,
       }
     })
-  }, [selection, allServices, discount])
+  }, [selection, services, discount])
 
   const totalBase = selectedItems.reduce((sum, i) => {
-    const svc = allServices.find((s) => s.id === i.id)!
-    return sum + svc.basePrice * i.qty
+    const svc = services.find((s) => s.id === i.id)!
+    return sum + svc.price * i.qty
   }, 0)
   const totalDiscounted = selectedItems.reduce((s, i) => s + i.totalDiscounted, 0)
   const savings = totalBase - totalDiscounted
+
+  // Group services by category
+  const categories = useMemo(() => {
+    const grouped = services.reduce(
+      (acc, service) => {
+        if (!acc[service.category]) {
+          acc[service.category] = []
+        }
+        acc[service.category].push(service)
+        return acc
+      },
+      {} as Record<string, Service[]>
+    )
+    return Object.entries(grouped).map(([id, items]) => ({
+      id,
+      label: CATEGORY_LABELS[id] || id,
+      services: items.sort((a, b) => (a.order || 0) - (b.order || 0)),
+    }))
+  }, [services])
 
   return (
     <section
@@ -95,7 +127,7 @@ export function Calculator({ settings = DEFAULT_SETTINGS }: { settings?: Resolve
         <div className="grid lg:grid-cols-[1fr_400px] gap-6 lg:gap-8 items-start">
           {/* Services list */}
           <div className="space-y-3">
-            {SERVICE_CATEGORIES.map((cat) => (
+            {categories.map((cat) => (
               <div
                 key={cat.id}
                 className="rounded-2xl border border-white/5 bg-white/[0.02] backdrop-blur-sm overflow-hidden"
@@ -105,11 +137,8 @@ export function Calculator({ settings = DEFAULT_SETTINGS }: { settings?: Resolve
                   className="w-full flex items-center justify-between px-5 md:px-6 py-5 hover:bg-white/[0.02] transition-colors"
                 >
                   <div className="flex items-center gap-3 text-left">
-                    {cat.icon === "heart" && <Heart className="h-5 w-5 text-brand-red shrink-0" />}
-                    {cat.icon === "glass-water" && <GlassWater className="h-5 w-5 text-brand-red shrink-0" />}
-                    {cat.icon === "smartphone" && <Smartphone className="h-5 w-5 text-brand-red shrink-0" />}
-                    {cat.icon === "briefcase" && <Briefcase className="h-5 w-5 text-brand-red shrink-0" />}
-                    <h3 className="text-lg md:text-xl font-bold">{cat.title}</h3>
+                    {CATEGORY_ICONS[cat.id]}
+                    <h3 className="text-lg md:text-xl font-bold">{cat.label}</h3>
                   </div>
                   <ChevronDown
                     className={`h-5 w-5 text-white/50 transition-transform shrink-0 ${
@@ -123,7 +152,7 @@ export function Calculator({ settings = DEFAULT_SETTINGS }: { settings?: Resolve
                     {cat.services.map((s) => {
                       const isSelected = !!selection[s.id]
                       const qty = selection[s.id] ?? 1
-                      const discounted = s.basePrice * (1 - discount)
+                      const discounted = s.price * (1 - discount)
 
                       return (
                         <div
@@ -160,7 +189,7 @@ export function Calculator({ settings = DEFAULT_SETTINGS }: { settings?: Resolve
 
                               <div className="flex flex-wrap items-end gap-x-3 gap-y-1 mt-3">
                                 <span className="text-xs text-white/30 line-through">
-                                  {formatPrice(s.basePrice)}
+                                  {formatPrice(s.price)}
                                   {s.hourly ? "/час" : ""}
                                 </span>
                                 <span className="text-xl md:text-2xl font-bold text-brand-red">

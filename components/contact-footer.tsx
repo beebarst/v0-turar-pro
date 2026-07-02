@@ -2,7 +2,11 @@
 
 import { useState } from "react"
 import { Loader2, CheckCircle2 } from "lucide-react"
-import { DEFAULT_SETTINGS, type ResolvedSettings } from "@/lib/sanity/types"
+import type { Settings } from "@/lib/kv/client"
+
+interface ContactFooterProps {
+  settings: Settings
+}
 
 async function sendToTelegram(text: string) {
   const res = await fetch("/api/telegram", {
@@ -38,8 +42,7 @@ function InstagramIcon({ className }: { className?: string }) {
   )
 }
 
-export function ContactFooter({ settings = DEFAULT_SETTINGS }: { settings?: ResolvedSettings }) {
-  const social = settings.social
+export function ContactFooter({ settings }: ContactFooterProps) {
   const [phone, setPhone] = useState("")
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
 
@@ -118,7 +121,7 @@ export function ContactFooter({ settings = DEFAULT_SETTINGS }: { settings?: Reso
         {/* Center: large social icons */}
         <div className="mt-20 md:mt-24 flex items-center justify-center gap-8 md:gap-16">
           <a
-            href={social.whatsapp}
+            href={settings.whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="WhatsApp"
@@ -128,7 +131,7 @@ export function ContactFooter({ settings = DEFAULT_SETTINGS }: { settings?: Reso
             <span className="text-xs text-white/50">WhatsApp</span>
           </a>
           <a
-            href={social.telegram}
+            href={settings.telegramLink}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Telegram"
@@ -138,7 +141,7 @@ export function ContactFooter({ settings = DEFAULT_SETTINGS }: { settings?: Reso
             <span className="text-xs text-white/50">Telegram</span>
           </a>
           <a
-            href={social.instagram}
+            href={settings.instagramLink}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram"
@@ -155,10 +158,10 @@ export function ContactFooter({ settings = DEFAULT_SETTINGS }: { settings?: Reso
             Прямой звонок
           </div>
           <a
-            href={`tel:${social.phoneRaw}`}
+            href={`tel:${settings.contactPhone.replace(/\D/g, "")}`}
             className="inline-block text-3xl sm:text-4xl md:text-5xl font-black tracking-tight hover:text-brand-red transition-colors"
           >
-            {social.phone}
+            {settings.contactPhone}
           </a>
         </div>
 

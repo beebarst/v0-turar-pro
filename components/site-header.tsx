@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react"
 import { Phone } from "lucide-react"
-import { DEFAULT_SETTINGS, type ResolvedSettings } from "@/lib/sanity/types"
+import type { Settings } from "@/lib/kv/client"
+import { DEFAULT_SETTINGS } from "@/lib/kv/defaults"
 
 // Real SVG icons for social media (matching footer)
 function WhatsAppIcon({ className }: { className?: string }) {
@@ -29,8 +30,11 @@ function InstagramIcon({ className }: { className?: string }) {
   )
 }
 
-export function SiteHeader({ settings = DEFAULT_SETTINGS }: { settings?: ResolvedSettings }) {
-  const social = settings.social
+interface SiteHeaderProps {
+  settings: Settings
+}
+
+export function SiteHeader({ settings }: SiteHeaderProps) {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -54,21 +58,21 @@ export function SiteHeader({ settings = DEFAULT_SETTINGS }: { settings?: Resolve
             TURAR<span className="text-brand-red">.</span>PRO
           </span>
           <span className="text-[10px] md:text-xs text-white/50 tracking-wide">
-            Видеограф Бибарыс Тұрар | Костанай
+            {settings.headerTagline}
           </span>
         </a>
 
         <div className="flex items-center gap-2 md:gap-5">
           <a
-            href={`tel:${social.phoneRaw}`}
+            href={`tel:${settings.contactPhone.replace(/\D/g, "")}`}
             className="hidden sm:flex items-center gap-2 text-sm md:text-base text-white/90 hover:text-brand-red transition-colors"
           >
             <Phone className="h-4 w-4" />
-            <span className="font-medium">{social.phone}</span>
+            <span className="font-medium">{settings.contactPhone}</span>
           </a>
           <div className="flex items-center gap-1 md:gap-2">
             <a
-              href={social.whatsapp}
+              href={settings.whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp"
@@ -77,7 +81,7 @@ export function SiteHeader({ settings = DEFAULT_SETTINGS }: { settings?: Resolve
               <WhatsAppIcon className="h-5 w-5" />
             </a>
             <a
-              href={social.telegram}
+              href={settings.telegramLink}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Telegram"
@@ -86,7 +90,7 @@ export function SiteHeader({ settings = DEFAULT_SETTINGS }: { settings?: Resolve
               <TelegramIcon className="h-5 w-5" />
             </a>
             <a
-              href={social.instagram}
+              href={settings.instagramLink}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
