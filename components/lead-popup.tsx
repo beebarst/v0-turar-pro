@@ -20,14 +20,19 @@ export function LeadPopup() {
 
   useEffect(() => {
     if (typeof window === "undefined") return
-    const already = sessionStorage.getItem("lead_popup_shown")
-    if (already) return
+    try {
+      const already = sessionStorage.getItem("lead_popup_shown")
+      if (already) return
+    } catch {
+      // sessionStorage unavailable (private mode restrictions in some browsers)
+      return
+    }
     const timer = setTimeout(() => setVisible(true), 3000)
     return () => clearTimeout(timer)
   }, [])
 
   const close = () => {
-    sessionStorage.setItem("lead_popup_shown", "1")
+    try { sessionStorage.setItem("lead_popup_shown", "1") } catch { /* ignore */ }
     setVisible(false)
   }
 
@@ -42,7 +47,7 @@ export function LeadPopup() {
           `📞 <b>Телефон / Telegram:</b> ${contact}`,
       )
       setStatus("success")
-      sessionStorage.setItem("lead_popup_shown", "1")
+      try { sessionStorage.setItem("lead_popup_shown", "1") } catch { /* ignore */ }
     } catch {
       setStatus("error")
     }
