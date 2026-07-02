@@ -4,7 +4,7 @@ import { Portfolio } from "@/components/portfolio"
 import { Calculator } from "@/components/calculator"
 import { ContactFooter } from "@/components/contact-footer"
 import { FloatingBadge } from "@/components/floating-badge"
-import { getResolvedSettings } from "@/lib/sanity/settings"
+import { getResolvedSettings } from "@/lib/kv"
 
 export default async function Page() {
   // Fetched from Sanity GlobalSettings (falls back to defaults if unavailable).
