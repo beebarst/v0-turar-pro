@@ -2,32 +2,16 @@ import { defineConfig } from "sanity"
 import { structureTool } from "sanity/structure"
 import { schemaTypes } from "./sanity/schemas"
 
-
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || ""
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production"
 
-/**
- * Sanity Studio configuration.
- *
- * "globalSettings" is treated as a singleton: instead of a document list, the
- * structure links straight to the single document with the fixed id, and the
- * default create/delete/duplicate actions are removed for it.
- */
 export default defineConfig({
   name: "default",
-  title: "TURAR.PRO",
+  title: "TURAR.PRO CMS",
   projectId,
   dataset,
   schema: {
     types: schemaTypes,
   },
-  document: {
-    // Remove "create / duplicate / delete" actions for the singleton.
-    actions: (prev, { schemaType }) =>
-      schemaType === "globalSettings"
-        ? prev.filter(({ action }) => action && ["publish", "discardChanges", "restore"].includes(action))
-        : prev,
-  },
-plugins: [
-  structureTool()
-],
+  plugins: [structureTool()],
+})
