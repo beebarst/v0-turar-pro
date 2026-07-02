@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
-import "./globals.css"
-// После строки import "./globals.css"
 import { LeadPopup } from "@/components/lead-popup"
+import "./globals.css"
+
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
   variable: "--font-inter",
@@ -24,7 +24,6 @@ export const viewport = {
 }
 
 export default function RootLayout({
-  <LeadPopup />
   children,
 }: Readonly<{
   children: React.ReactNode
@@ -35,6 +34,7 @@ export default function RootLayout({
         {/* META PIXEL: ТВОЙ_ID_ПИКСЕЛЯ_ЗДЕСЬ */}
       </head>
       <body className="font-sans antialiased bg-transparent text-white overflow-x-hidden">
+        <LeadPopup />
         {children}
         {process.env.NODE_ENV === "production" && <Analytics />}
       </body>
