@@ -9,5 +9,7 @@ export const portfolio = defineType({
     defineField({ name: "category", title: "Категория", type: "string" }),
     defineField({ name: "imageUrl", title: "Ссылка на картинку", type: "string" }),
     defineField({ name: "videoUrl", title: "Ссылка на видео", type: "string" }),
+    defineField({ name: "tag", title: "Тег", type: "string" }),
+    defineField({ name: "order", title: "Порядок сортировки", type: "number" }),
   ],
 })
