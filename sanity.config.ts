@@ -1,7 +1,6 @@
 import { defineConfig } from "sanity"
 import { structureTool } from "sanity/structure"
 import { schemaTypes } from "./sanity/schemas"
-import { GLOBAL_SETTINGS_ID } from "./lib/sanity/queries"
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || ""
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production"
@@ -38,10 +37,11 @@ structureTool({
             S.listItem()
               .title("Глобальные настройки")
               .id("globalSettings")
+              .icon(() => "⚙️")
               .child(
-                S.document()
+                S.editor()
                   .schemaType("globalSettings")
-                  .documentId(GLOBAL_SETTINGS_ID),
+                  .documentId("globalSettings"),
               ),
             
             // 2. Добавляем "Услуги"
