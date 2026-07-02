@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { LeadPopup } from "@/components/lead-popup"
 import "./globals.css"
 
 const inter = Inter({
@@ -34,6 +35,7 @@ export default function RootLayout({
       </head>
       <body className="font-sans antialiased bg-transparent text-white overflow-x-hidden">
         {children}
+        <LeadPopup />
         {process.env.NODE_ENV === "production" && <Analytics />}
       </body>
     </html>
