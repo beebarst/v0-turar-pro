@@ -1,7 +1,7 @@
 import { defineConfig } from "sanity"
 import { structureTool } from "sanity/structure"
 import { schemaTypes } from "./sanity/schemas"
-import { GLOBAL_SETTINGS_ID } from "./lib/sanity/queries"
+
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || ""
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production"
@@ -28,28 +28,6 @@ export default defineConfig({
         ? prev.filter(({ action }) => action && ["publish", "discardChanges", "restore"].includes(action))
         : prev,
   },
-  plugins: [
-structureTool({
-      structure: (S) =>
-        S.list()
-          .title("Контент")
-          .items([
-            // 1. Пункт "Глобальные настройки" (твой текущий)
-            S.listItem()
-              .title("Глобальные настройки")
-              .id("globalSettings")
-              .child(
-                S.document()
-                  .schemaType("globalSettings")
-                  .documentId(GLOBAL_SETTINGS_ID),
-              ),
-            
-            // 2. Добавляем "Услуги"
-            S.documentTypeListItem("service").title("Услуги"),
-
-            // 3. Добавляем "Портфолио"
-            S.documentTypeListItem("portfolio").title("Портфолио"),
-          ]),
-    }),
-  ],
-})
+plugins: [
+  structureTool()
+],
