@@ -12,6 +12,7 @@ export function LeadPopup({ enabled = true }: { enabled?: boolean }) {
   const [isError, setIsError] = useState(false)
 
   useEffect(() => {
+    if (!enabled) return
     const timer = setTimeout(() => {
       setIsOpen(true)
     }, 3000)
