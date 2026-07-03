@@ -8,6 +8,8 @@ import { LeadPopup } from "@/components/lead-popup"
 import { getSettings, getServices, getPortfolioItems } from "@/lib/kv/client"
 import { DEFAULT_SETTINGS, DEFAULT_SERVICES, DEFAULT_PORTFOLIO } from "@/lib/kv/defaults"
 
+export const dynamic = "force-dynamic"
+
 export default async function Page() {
   const [settings, services, portfolio] = await Promise.all([
     getSettings(),
