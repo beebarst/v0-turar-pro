@@ -157,6 +157,7 @@ export const DEFAULT_PORTFOLIO: PortfolioItem[] = [
     imageUrl: "https://via.placeholder.com/800x600?text=Wedding+1",
     videoUrl: "",
     order: 1,
+    globalOrder: 1,
   },
   {
     id: "2",
@@ -166,6 +167,7 @@ export const DEFAULT_PORTFOLIO: PortfolioItem[] = [
     imageUrl: "https://via.placeholder.com/800x600?text=Events+1",
     videoUrl: "",
     order: 2,
+    globalOrder: 2,
   },
   {
     id: "3",
@@ -175,6 +177,7 @@ export const DEFAULT_PORTFOLIO: PortfolioItem[] = [
     imageUrl: "https://via.placeholder.com/800x600?text=Social+1",
     videoUrl: "",
     order: 3,
+    globalOrder: 3,
   },
   {
     id: "4",
@@ -184,6 +187,7 @@ export const DEFAULT_PORTFOLIO: PortfolioItem[] = [
     imageUrl: "https://via.placeholder.com/800x600?text=Business+1",
     videoUrl: "",
     order: 4,
+    globalOrder: 4,
   },
   {
     id: "5",
@@ -193,6 +197,7 @@ export const DEFAULT_PORTFOLIO: PortfolioItem[] = [
     imageUrl: "https://via.placeholder.com/800x600?text=Wedding+2",
     videoUrl: "",
     order: 5,
+    globalOrder: 5,
   },
   {
     id: "6",
@@ -202,6 +207,7 @@ export const DEFAULT_PORTFOLIO: PortfolioItem[] = [
     imageUrl: "https://via.placeholder.com/800x600?text=Events+2",
     videoUrl: "",
     order: 6,
+    globalOrder: 6,
   },
   {
     id: "7",
@@ -211,6 +217,7 @@ export const DEFAULT_PORTFOLIO: PortfolioItem[] = [
     imageUrl: "https://via.placeholder.com/800x600?text=Social+2",
     videoUrl: "",
     order: 7,
+    globalOrder: 7,
   },
   {
     id: "8",
@@ -220,5 +227,6 @@ export const DEFAULT_PORTFOLIO: PortfolioItem[] = [
     imageUrl: "https://via.placeholder.com/800x600?text=Business+2",
     videoUrl: "",
     order: 8,
+    globalOrder: 8,
   },
 ]

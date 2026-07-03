@@ -52,6 +52,7 @@ export function PortfolioTab() {
         imageUrl: "",
         videoUrl: "",
         order: prev.length + 1,
+        globalOrder: prev.length + 1,
       },
     ])
   }
@@ -123,6 +124,15 @@ export function PortfolioTab() {
                 type="number"
                 value={item.order ?? 0}
                 onChange={(e) => handleUpdate(item.id, "order", parseInt(e.target.value) || 0)}
+                className={inputCls}
+              />
+            </div>
+            <div>
+              <label className={labelCls}>Порядок (в разделе Все)</label>
+              <input
+                type="number"
+                value={item.globalOrder ?? 0}
+                onChange={(e) => handleUpdate(item.id, "globalOrder", parseInt(e.target.value) || 0)}
                 className={inputCls}
               />
             </div>

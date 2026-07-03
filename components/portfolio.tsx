@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Play } from "lucide-react"
+import { Play, X } from "lucide-react"
 import type { PortfolioItem } from "@/lib/kv/client"
 
 const FILTERS = [
@@ -12,13 +12,31 @@ const FILTERS = [
   { id: "business", label: "Бизнес" },
 ] as const
 
+function toEmbedUrl(url: string): string {
+  // https://youtu.be/ID → https://www.youtube.com/embed/ID
+  const short = url.match(/youtu\.be\/([^?&]+)/)
+  if (short) return `https://www.youtube.com/embed/${short[1]}?autoplay=1`
+  // https://www.youtube.com/watch?v=ID
+  const full = url.match(/[?&]v=([^?&]+)/)
+  if (full) return `https://www.youtube.com/embed/${full[1]}?autoplay=1`
+  // Google Drive preview — leave as-is
+  return url
+}
+
 interface PortfolioProps {
   items: PortfolioItem[]
 }
 
 export function Portfolio({ items }: PortfolioProps) {
   const [filter, setFilter] = useState<(typeof FILTERS)[number]["id"]>("all")
-  const filtered = filter === "all" ? items : items.filter((i) => i.category === filter)
+  const [activeVideo, setActiveVideo] = useState<string | null>(null)
+
+  const filtered =
+    filter === "all"
+      ? [...items].sort((a, b) => (a.globalOrder ?? 999) - (b.globalOrder ?? 999))
+      : [...items]
+          .filter((i) => i.category === filter)
+          .sort((a, b) => (a.order ?? 999) - (b.order ?? 999))
 
   return (
     <section id="portfolio" className="py-20 md:py-28 px-4 sm:px-6 lg:px-8">
@@ -33,7 +51,14 @@ export function Portfolio({ items }: PortfolioProps) {
             </h2>
           </div>
 
-          <div className="flex gap-2 overflow-x-auto no-scrollbar -mx-4 px-4 md:mx-0 md:px-0">
+          <div
+            className="flex gap-2 overflow-x-auto pb-1 flex-nowrap
+              [&::-webkit-scrollbar]:h-[2px]
+              [&::-webkit-scrollbar-track]:bg-transparent
+              [&::-webkit-scrollbar-thumb]:bg-white/20
+              [&::-webkit-scrollbar-thumb]:rounded-full
+              -mx-4 px-4 md:mx-0 md:px-0"
+          >
             {FILTERS.map((f) => (
               <button
                 key={f.id}
@@ -54,6 +79,7 @@ export function Portfolio({ items }: PortfolioProps) {
           {filtered.map((item, idx) => (
             <div
               key={item.id}
+              onClick={() => item.videoUrl ? setActiveVideo(item.videoUrl) : undefined}
               className={`group relative aspect-video rounded-2xl overflow-hidden border border-white/5 cursor-pointer bg-gradient-to-br from-neutral-900 to-neutral-800 ${
                 idx === 0 ? "lg:col-span-2 lg:row-span-2 lg:aspect-auto lg:min-h-[420px]" : ""
               }`}
@@ -79,6 +105,38 @@ export function Portfolio({ items }: PortfolioProps) {
           ))}
         </div>
       </div>
+
+      {/* Video Modal */}
+      {activeVideo && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          onClick={() => setActiveVideo(null)}
+        >
+          <div
+            className="relative w-full max-w-4xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setActiveVideo(null)}
+              className="absolute -top-10 right-0 text-white/70 hover:text-white transition-colors"
+              aria-label="Закрыть"
+            >
+              <X className="h-7 w-7" />
+            </button>
+            <div className="w-full aspect-video rounded-xl overflow-hidden bg-black">
+              <iframe
+                src={toEmbedUrl(activeVideo)}
+                width="100%"
+                height="100%"
+                allow="autoplay; fullscreen; picture-in-picture"
+                frameBorder="0"
+                allowFullScreen
+                className="w-full h-full"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }

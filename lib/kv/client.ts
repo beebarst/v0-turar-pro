@@ -35,6 +35,7 @@ export type PortfolioItem = {
   imageUrl: string
   videoUrl: string
   order?: number
+  globalOrder?: number
 }
 
 const SETTINGS_KEY = "turar_settings"
