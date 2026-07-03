@@ -71,7 +71,12 @@ export function ContactFooter({ settings }: ContactFooterProps) {
             {settings.contactLabel}
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-balance leading-tight">
-            {settings.contactHeading} <br className="sm:hidden" />
+            {settings.contactHeading.split("\n").map((line, i) => (
+              <span key={i}>
+                {line}
+                <br />
+              </span>
+            ))}
             <span className="text-brand-red">{settings.contactHeadingAccent}</span>
           </h2>
           <p className="mt-4 text-white/60 text-pretty" style={{ whiteSpace: "pre-line" }}>
@@ -167,7 +172,7 @@ export function ContactFooter({ settings }: ContactFooterProps) {
 
         {/* Bottom */}
         <div className="mt-20 md:mt-24 pt-8 border-t border-white/5 text-center text-sm text-white/40">
-          © 2026 Бибарыс Тұрар. Все права защище��ы.
+          © 2026 Бибарыс Тұр��р. Все права защище��ы.
         </div>
       </div>
 

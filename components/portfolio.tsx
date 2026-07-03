@@ -48,7 +48,13 @@ export function Portfolio({ items, settings }: PortfolioProps) {
               {settings.portfolioLabel}
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-balance">
-              {settings.portfolioHeading} <span className="text-brand-red">{settings.portfolioHeadingAccent}</span>
+              {settings.portfolioHeading.split("\n").map((line, i) => (
+                <span key={i}>
+                  {line}
+                  <br />
+                </span>
+              ))}
+              <span className="text-brand-red">{settings.portfolioHeadingAccent}</span>
             </h2>
           </div>
 

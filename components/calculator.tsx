@@ -116,7 +116,12 @@ export function Calculator({ settings, services }: CalculatorProps) {
             {settings.calculatorLabel}
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-balance leading-tight">
-            {settings.calculatorHeading} <br className="sm:hidden" />
+            {settings.calculatorHeading.split("\n").map((line, i) => (
+              <span key={i}>
+                {line}
+                <br />
+              </span>
+            ))}
             <span className="text-brand-red">{settings.calculatorHeadingAccent}</span>
           </h2>
           <div className="text-center text-sm text-white/50 mt-4 mb-0">
