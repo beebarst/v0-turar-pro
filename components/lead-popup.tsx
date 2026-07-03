@@ -9,6 +9,7 @@ export function LeadPopup() {
   const [contact, setContact] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [isSent, setIsSent] = useState(false)
+  const [isError, setIsError] = useState(false)
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -31,21 +32,26 @@ export function LeadPopup() {
     if (!name || !contact) return
 
     setIsLoading(true)
+    setIsError(false)
 
     try {
-      const text = `Новый лид из попапа:\nИмя: ${name}\nКонтакт: ${contact}`
-      await fetch("/api/telegram", {
+      const text = `🔔 <b>Новый лид из попапа</b>\n\n👤 <b>Имя:</b> ${name}\n📞 <b>Контакт:</b> ${contact}`
+      const res = await fetch("/api/telegram", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text }),
       })
 
+      if (!res.ok) {
+        throw new Error("send failed")
+      }
+
       setIsSent(true)
       setTimeout(() => {
         setIsOpen(false)
-      }, 2000)
+      }, 2500)
     } catch {
-      // silent
+      setIsError(true)
     } finally {
       setIsLoading(false)
     }
@@ -114,6 +120,12 @@ export function LeadPopup() {
             >
               {isLoading ? "Отправляю..." : "Узнать свободные даты"}
             </button>
+
+            {isError && (
+              <p className="text-sm text-red-400 text-center">
+                Ошибка отправки. Попробуйте ещё раз.
+              </p>
+            )}
           </form>
         )}
       </div>

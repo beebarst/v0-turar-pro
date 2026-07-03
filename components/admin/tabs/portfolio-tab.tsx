@@ -1,14 +1,22 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent } from "@/components/ui/card"
 import { DEFAULT_PORTFOLIO } from "@/lib/kv/defaults"
 import type { PortfolioItem } from "@/lib/kv/client"
 
+const inputCls =
+  "w-full px-3 py-2 rounded-lg bg-neutral-800 border border-neutral-700 text-white placeholder-neutral-500 text-sm outline-none focus:border-neutral-500 transition-colors disabled:opacity-50"
+
+const labelCls = "block text-sm font-medium text-neutral-300 mb-1"
+
 const CATEGORIES = ["wedding", "events", "social", "business"] as const
+
+const CATEGORY_LABELS: Record<string, string> = {
+  wedding: "Свадьбы",
+  events: "Мероприятия",
+  social: "Соцсети",
+  business: "Бизнес",
+}
 
 export function PortfolioTab() {
   const [items, setItems] = useState<PortfolioItem[]>(DEFAULT_PORTFOLIO)
@@ -17,14 +25,12 @@ export function PortfolioTab() {
   const [message, setMessage] = useState("")
 
   useEffect(() => {
-    const loadPortfolio = async () => {
+    const load = async () => {
       try {
         const res = await fetch("/api/admin/portfolio")
         if (res.ok) {
           const data = await res.json()
-          if (data && data.length > 0) {
-            setItems(data)
-          }
+          if (data && data.length > 0) setItems(data)
         }
       } catch (err) {
         console.log("[v0] Failed to load portfolio:", err)
@@ -32,161 +38,150 @@ export function PortfolioTab() {
         setIsLoading(false)
       }
     }
-
-    loadPortfolio()
+    load()
   }, [])
 
-  const handleAddItem = () => {
-    const newItem: PortfolioItem = {
-      id: `portfolio-${Date.now()}`,
-      title: "Новая работа",
-      category: "wedding",
-      tag: "Тег",
-      imageUrl: "",
-      videoUrl: "",
-      order: items.length + 1,
-    }
-    setItems([...items, newItem])
+  const handleAdd = () => {
+    setItems((prev) => [
+      ...prev,
+      {
+        id: `portfolio-${Date.now()}`,
+        title: "Новая работа",
+        category: "wedding",
+        tag: "Тег",
+        imageUrl: "",
+        videoUrl: "",
+        order: prev.length + 1,
+      },
+    ])
   }
 
-  const handleRemoveItem = (id: string) => {
-    setItems(items.filter((item) => item.id !== id))
-  }
+  const handleRemove = (id: string) => setItems((prev) => prev.filter((item) => item.id !== id))
 
-  const handleUpdateItem = (id: string, field: keyof PortfolioItem, value: any) => {
-    setItems(items.map((item) => (item.id === id ? { ...item, [field]: value } : item)))
-  }
+  const handleUpdate = (id: string, field: keyof PortfolioItem, value: unknown) =>
+    setItems((prev) => prev.map((item) => (item.id === id ? { ...item, [field]: value } : item)))
 
   const handleSave = async () => {
     setIsSaving(true)
     setMessage("")
-
     try {
       const res = await fetch("/api/admin/portfolio", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(items),
       })
-
-      if (res.ok) {
-        setMessage("Портфолио сохранено ✓")
-      } else {
-        setMessage("Ошибка при сохранении")
-      }
-    } catch (err) {
-      console.log("[v0] Save error:", err)
+      setMessage(res.ok ? "Портфолио сохранено ✓" : "Ошибка при сохранении")
+    } catch {
       setMessage("Ошибка при сохранении")
     } finally {
       setIsSaving(false)
     }
   }
 
-  if (isLoading) return <div className="text-white">Загрузка...</div>
+  if (isLoading) return <div className="text-white py-8">Загрузка...</div>
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {items.map((item) => (
-        <Card key={item.id} className="bg-neutral-900 border-neutral-800">
-          <CardContent className="pt-6 space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label className="text-neutral-300">Название</Label>
-                <Input
-                  type="text"
-                  value={item.title}
-                  onChange={(e) => handleUpdateItem(item.id, "title", e.target.value)}
-                  className="bg-neutral-800 border-neutral-700 text-white"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label className="text-neutral-300">Категория</Label>
-                <select
-                  value={item.category}
-                  onChange={(e) => handleUpdateItem(item.id, "category", e.target.value)}
-                  className="w-full px-3 py-2 bg-neutral-800 border border-neutral-700 rounded text-white"
-                >
-                  {CATEGORIES.map((cat) => (
-                    <option key={cat} value={cat}>
-                      {cat}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="space-y-2">
-                <Label className="text-neutral-300">Тег</Label>
-                <Input
-                  type="text"
-                  value={item.tag}
-                  onChange={(e) => handleUpdateItem(item.id, "tag", e.target.value)}
-                  className="bg-neutral-800 border-neutral-700 text-white"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label className="text-neutral-300">Порядок</Label>
-                <Input
-                  type="number"
-                  value={item.order || 0}
-                  onChange={(e) => handleUpdateItem(item.id, "order", parseInt(e.target.value))}
-                  className="bg-neutral-800 border-neutral-700 text-white"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <Label className="text-neutral-300">Ссылка на изображение</Label>
-              <Input
+        <div key={item.id} className="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className={labelCls}>Название</label>
+              <input
                 type="text"
-                placeholder="https://..."
-                value={item.imageUrl}
-                onChange={(e) => handleUpdateItem(item.id, "imageUrl", e.target.value)}
-                className="bg-neutral-800 border-neutral-700 text-white"
+                value={item.title}
+                onChange={(e) => handleUpdate(item.id, "title", e.target.value)}
+                className={inputCls}
               />
             </div>
-
-            <div className="space-y-2">
-              <Label className="text-neutral-300">Ссылка на видео</Label>
-              <Input
+            <div>
+              <label className={labelCls}>Категория</label>
+              <select
+                value={item.category}
+                onChange={(e) => handleUpdate(item.id, "category", e.target.value)}
+                className={inputCls}
+              >
+                {CATEGORIES.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {CATEGORY_LABELS[cat]}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className={labelCls}>Тег</label>
+              <input
                 type="text"
-                placeholder="https://..."
-                value={item.videoUrl}
-                onChange={(e) => handleUpdateItem(item.id, "videoUrl", e.target.value)}
-                className="bg-neutral-800 border-neutral-700 text-white"
+                value={item.tag}
+                onChange={(e) => handleUpdate(item.id, "tag", e.target.value)}
+                className={inputCls}
               />
             </div>
-
-            <Button
-              onClick={() => handleRemoveItem(item.id)}
-              className="w-full bg-red-900 hover:bg-red-800 text-white"
-            >
-              Удалить
-            </Button>
-          </CardContent>
-        </Card>
+            <div>
+              <label className={labelCls}>Порядок</label>
+              <input
+                type="number"
+                value={item.order ?? 0}
+                onChange={(e) => handleUpdate(item.id, "order", parseInt(e.target.value) || 0)}
+                className={inputCls}
+              />
+            </div>
+          </div>
+          <div className="mt-4">
+            <label className={labelCls}>Ссылка на изображение</label>
+            <input
+              type="text"
+              placeholder="https://..."
+              value={item.imageUrl}
+              onChange={(e) => handleUpdate(item.id, "imageUrl", e.target.value)}
+              className={inputCls}
+            />
+          </div>
+          <div className="mt-4">
+            <label className={labelCls}>Ссылка на видео</label>
+            <input
+              type="text"
+              placeholder="https://..."
+              value={item.videoUrl ?? ""}
+              onChange={(e) => handleUpdate(item.id, "videoUrl", e.target.value)}
+              className={inputCls}
+            />
+          </div>
+          <button
+            onClick={() => handleRemove(item.id)}
+            className="mt-4 w-full py-2 px-4 rounded-lg bg-red-900/40 hover:bg-red-900/70 text-red-400 hover:text-red-300 text-sm font-medium transition-colors border border-red-900/50"
+          >
+            Удалить
+          </button>
+        </div>
       ))}
 
-      <Button
-        onClick={handleAddItem}
-        className="w-full bg-neutral-800 hover:bg-neutral-700 text-white border border-neutral-700"
+      <button
+        onClick={handleAdd}
+        className="w-full py-3 px-4 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white text-sm font-medium transition-colors border border-neutral-700"
       >
         + Добавить работу
-      </Button>
+      </button>
 
       {message && (
-        <div className={`p-4 rounded ${message.includes("✓") ? "bg-green-900 text-green-200" : "bg-red-900 text-red-200"}`}>
+        <div
+          className={`p-4 rounded-lg text-sm font-medium ${
+            message.includes("✓")
+              ? "bg-green-900/50 text-green-300 border border-green-800"
+              : "bg-red-900/50 text-red-300 border border-red-800"
+          }`}
+        >
           {message}
         </div>
       )}
 
-      <Button
+      <button
         onClick={handleSave}
-        className="bg-brand-red hover:bg-red-600 text-white w-full"
         disabled={isSaving}
+        className="w-full py-3 px-4 rounded-xl bg-red-600 hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold text-sm transition-colors"
       >
         {isSaving ? "Сохранение..." : "Сохранить все"}
-      </Button>
+      </button>
     </div>
   )
 }

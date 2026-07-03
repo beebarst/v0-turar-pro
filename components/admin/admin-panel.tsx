@@ -1,19 +1,18 @@
 "use client"
 
-import { useRouter } from "next/navigation"
 import { useState } from "react"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Button } from "@/components/ui/button"
 import { SettingsTab } from "./tabs/settings-tab"
 import { ServicesTab } from "./tabs/services-tab"
 import { PortfolioTab } from "./tabs/portfolio-tab"
+
+type Tab = "settings" | "services" | "portfolio"
 
 interface AdminPanelProps {
   onLogout: () => void
 }
 
 export function AdminPanel({ onLogout }: AdminPanelProps) {
-  const router = useRouter()
+  const [activeTab, setActiveTab] = useState<Tab>("settings")
   const [isLoading, setIsLoading] = useState(false)
 
   const handleLogout = async () => {
@@ -21,7 +20,6 @@ export function AdminPanel({ onLogout }: AdminPanelProps) {
     try {
       await fetch("/api/admin/logout", { method: "POST" })
       onLogout()
-      router.push("/admin")
     } catch (err) {
       console.log("[v0] Logout error:", err)
     } finally {
@@ -29,57 +27,49 @@ export function AdminPanel({ onLogout }: AdminPanelProps) {
     }
   }
 
+  const tabs: { id: Tab; label: string }[] = [
+    { id: "settings", label: "Настройки" },
+    { id: "services", label: "Услуги" },
+    { id: "portfolio", label: "Портфолио" },
+  ]
+
   return (
     <div className="min-h-screen bg-black">
       <div className="border-b border-neutral-800">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
           <h1 className="text-2xl font-bold text-white">Администратор</h1>
-          <Button
+          <button
             onClick={handleLogout}
-            variant="outline"
-            className="border-neutral-700 text-white hover:bg-neutral-900"
             disabled={isLoading}
+            className="px-4 py-2 rounded-lg border border-neutral-700 text-white hover:bg-neutral-900 disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium transition-colors"
           >
-            {isLoading ? "Выход..." : "Выход"}
-          </Button>
+            {isLoading ? "Выход..." : "Выйти"}
+          </button>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <Tabs defaultValue="settings" className="space-y-6">
-          <TabsList className="bg-neutral-900 border border-neutral-800">
-            <TabsTrigger
-              value="settings"
-              className="data-[state=active]:bg-brand-red data-[state=active]:text-white"
+        {/* Tab bar */}
+        <div className="flex gap-1 p-1 bg-neutral-900 border border-neutral-800 rounded-lg w-fit mb-6">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-5 py-2 rounded-md text-sm font-medium transition-colors ${
+                activeTab === tab.id
+                  ? "bg-red-600 text-white"
+                  : "text-neutral-400 hover:text-white"
+              }`}
             >
-              Настройки
-            </TabsTrigger>
-            <TabsTrigger
-              value="services"
-              className="data-[state=active]:bg-brand-red data-[state=active]:text-white"
-            >
-              Услуги
-            </TabsTrigger>
-            <TabsTrigger
-              value="portfolio"
-              className="data-[state=active]:bg-brand-red data-[state=active]:text-white"
-            >
-              Портфолио
-            </TabsTrigger>
-          </TabsList>
+              {tab.label}
+            </button>
+          ))}
+        </div>
 
-          <TabsContent value="settings">
-            <SettingsTab />
-          </TabsContent>
-
-          <TabsContent value="services">
-            <ServicesTab />
-          </TabsContent>
-
-          <TabsContent value="portfolio">
-            <PortfolioTab />
-          </TabsContent>
-        </Tabs>
+        {/* Tab content */}
+        {activeTab === "settings" && <SettingsTab />}
+        {activeTab === "services" && <ServicesTab />}
+        {activeTab === "portfolio" && <PortfolioTab />}
       </div>
     </div>
   )

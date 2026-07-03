@@ -10,11 +10,5 @@ export default function AdminLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  return (
-    <html lang="ru" className="bg-background dark">
-      <body className="font-sans antialiased bg-black text-white overflow-x-hidden">
-        {children}
-      </body>
-    </html>
-  )
+  return <>{children}</>
 }
