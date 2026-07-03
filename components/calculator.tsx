@@ -182,7 +182,7 @@ export function Calculator({ settings, services }: CalculatorProps) {
                                 <div className="font-semibold text-white text-balance">
                                   {s.title}
                                 </div>
-                                <p className="text-sm text-white/50 mt-1 leading-relaxed text-pretty">
+                                <p className="text-sm text-white/50 mt-1 leading-relaxed text-pretty" style={{ whiteSpace: "pre-line" }}>
                                   {s.description}
                                 </p>
                               </button>

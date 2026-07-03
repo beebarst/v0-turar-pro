@@ -74,7 +74,7 @@ export function ContactFooter({ settings }: ContactFooterProps) {
             {settings.contactHeading} <br className="sm:hidden" />
             <span className="text-brand-red">{settings.contactHeadingAccent}</span>
           </h2>
-          <p className="mt-4 text-white/60 text-pretty">
+          <p className="mt-4 text-white/60 text-pretty" style={{ whiteSpace: "pre-line" }}>
             {settings.contactSubtext}
           </p>
 
