@@ -131,11 +131,20 @@ export function SettingsTab() {
         <h2 className="text-lg font-semibold text-white mb-4">Hero секция</h2>
         <div className="space-y-4">
           <div>
-            <label className={labelCls}>Заголовок</label>
+            <label className={labelCls}>Заголовок (белый текст)</label>
             <input
               type="text"
               value={settings.heroHeading}
               onChange={(e) => set("heroHeading", e.target.value)}
+              className={inputCls}
+            />
+          </div>
+          <div>
+            <label className={labelCls}>Заголовок (красный акцент)</label>
+            <input
+              type="text"
+              value={settings.heroHeadingAccent}
+              onChange={(e) => set("heroHeadingAccent", e.target.value)}
               className={inputCls}
             />
           </div>

@@ -19,7 +19,7 @@ export function Hero({ settings }: HeroProps) {
     >
       <div className="mx-auto max-w-5xl w-full text-center">
         <h1 className="text-balance text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight">
-          {settings.heroHeading} <span className="text-brand-red">начинается здесь</span>
+          {settings.heroHeading} <span className="text-brand-red">{settings.heroHeadingAccent}</span>
         </h1>
 
         <p className="mt-6 md:mt-8 text-pretty text-lg md:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed">

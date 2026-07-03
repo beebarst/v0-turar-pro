@@ -8,6 +8,7 @@ export type Settings = {
   whatsappLink: string
   instagramLink: string
   heroHeading: string
+  heroHeadingAccent: string
   heroSubheading: string
   heroCtaPrimary: string
   heroCtaSecondary: string
