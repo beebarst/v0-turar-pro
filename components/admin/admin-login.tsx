@@ -1,9 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 
 interface AdminLoginProps {
   onLoginSuccess: () => void
@@ -49,29 +46,29 @@ export function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-white">
+              <label htmlFor="password" className="block text-sm font-medium text-white">
                 Пароль
-              </Label>
-              <Input
+              </label>
+              <input
                 id="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-500"
                 disabled={isLoading}
+                className="w-full px-4 py-3 rounded-lg bg-neutral-800 border border-neutral-700 text-white placeholder-neutral-500 text-sm outline-none focus:border-neutral-500 transition-colors disabled:opacity-50"
               />
             </div>
 
             {error && <div className="text-red-500 text-sm">{error}</div>}
 
-            <Button
+            <button
               type="submit"
-              className="w-full bg-brand-red hover:bg-red-600 text-white"
-              disabled={isLoading}
+              disabled={isLoading || !password}
+              className="w-full py-3 px-4 rounded-lg bg-red-600 hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold text-sm transition-colors"
             >
               {isLoading ? "Вход..." : "Войти"}
-            </Button>
+            </button>
           </form>
         </div>
       </div>
