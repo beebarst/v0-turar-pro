@@ -76,7 +76,7 @@ export async function getPortfolioItems(): Promise<PortfolioItem[]> {
       return []
     }
     const data = await kv.get<PortfolioItem[]>(PORTFOLIO_KEY)
-    return data ?? []
+    return (data ?? []).sort((a, b) => (a.order ?? 999) - (b.order ?? 999))
   } catch (error) {
     console.log("[v0] Failed to fetch portfolio from KV:", (error as Error).message)
     return []
