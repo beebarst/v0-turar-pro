@@ -13,11 +13,7 @@ export function LeadPopup() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      const popupShown = sessionStorage.getItem("popup_shown")
-      if (!popupShown) {
-        setIsOpen(true)
-        sessionStorage.setItem("popup_shown", "true")
-      }
+      setIsOpen(true)
     }, 3000)
 
     return () => clearTimeout(timer)
