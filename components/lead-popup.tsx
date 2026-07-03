@@ -47,4 +47,69 @@ export function LeadPopup({ enabled = true }: { enabled?: boolean }) {
 
   return (
     <div
-      className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-end md:items-center
+      className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4"
+      onClick={handleClose}
+    >
+      <div
+        className="relative w-full md:max-w-md bg-neutral-900 border border-neutral-800 rounded-t-2xl md:rounded-2xl p-6 shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          type="button"
+          onClick={handleClose}
+          className="absolute top-4 right-4 p-1 rounded hover:bg-neutral-800 transition-colors"
+        >
+          <X className="w-5 h-5 text-white" />
+        </button>
+
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-white mb-2">
+            {isSent ? "Отправлено!" : "Свободные даты разбирают быстро"}
+          </h2>
+          {!isSent && (
+            <p className="text-sm text-neutral-400">
+              Оставь контакт — я напишу с актуальным расписанием
+            </p>
+          )}
+        </div>
+
+        {isSent ? (
+          <div className="text-center py-4">
+            <p className="text-green-400 font-semibold text-lg">Отправлено! Напишу скоро 👍</p>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <input
+              type="text"
+              placeholder="Твое имя"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              disabled={isLoading}
+              className="w-full px-4 py-3 rounded-xl bg-neutral-800 border border-neutral-700 text-white placeholder-neutral-500 text-sm outline-none focus:border-neutral-500 transition-colors disabled:opacity-50"
+            />
+            <input
+              type="text"
+              placeholder="Телефон или Telegram"
+              value={contact}
+              onChange={(e) => setContact(e.target.value)}
+              disabled={isLoading}
+              className="w-full px-4 py-3 rounded-xl bg-neutral-800 border border-neutral-700 text-white placeholder-neutral-500 text-sm outline-none focus:border-neutral-500 transition-colors disabled:opacity-50"
+            />
+            <button
+              type="submit"
+              disabled={isLoading || !name || !contact}
+              className="w-full py-3 px-4 rounded-xl bg-red-600 hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold text-sm transition-colors"
+            >
+              {isLoading ? "Отправляю..." : "Узнать свободные даты"}
+            </button>
+            {isError && (
+              <p className="text-sm text-red-400 text-center">
+                Ошибка отправки. Попробуйте ещё раз.
+              </p>
+            )}
+          </form>
+        )}
+      </div>
+    </div>
+  )
+}
