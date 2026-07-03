@@ -5,7 +5,6 @@ import { X } from "lucide-react"
 
 export function LeadPopup({ enabled = true }: { enabled?: boolean }) {
   const [isOpen, setIsOpen] = useState(false)
-  const [isClosing, setIsClosing] = useState(false)
   const [name, setName] = useState("")
   const [contact, setContact] = useState("")
   const [isLoading, setIsLoading] = useState(false)
@@ -20,13 +19,7 @@ export function LeadPopup({ enabled = true }: { enabled?: boolean }) {
     return () => clearTimeout(timer)
   }, [])
 
-  const handleClose = () => {
-    setIsClosing(true)
-    setTimeout(() => {
-      setIsOpen(false)
-      setIsClosing(false)
-    }, 300)
-  }
+  const handleClose = () => setIsOpen(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -42,7 +35,7 @@ export function LeadPopup({ enabled = true }: { enabled?: boolean }) {
       })
       if (!res.ok) throw new Error("send failed")
       setIsSent(true)
-      setTimeout(() => handleClose(), 2500)
+      setTimeout(() => setIsOpen(false), 2500)
     } catch {
       setIsError(true)
     } finally {
@@ -53,22 +46,19 @@ export function LeadPopup({ enabled = true }: { enabled?: boolean }) {
   if (!isOpen) return null
 
   return (
-    <div
-      className={`fixed inset-0 z-50 flex items-end md:items-center justify-center p-0 md:p-4 transition-opacity duration-300 ${isClosing ? "opacity-0" : "opacity-100"}`}
-    >
+    <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center p-0 md:p-4">
       <div
         className="absolute inset-0 bg-black/60 backdrop-blur-sm"
         onClick={handleClose}
       />
       <div
-        className={`relative w-full md:max-w-md bg-neutral-900 border border-neutral-800 rounded-t-2xl md:rounded-2xl p-6 shadow-2xl z-10 transition-transform duration-300 ${isClosing ? "translate-y-4" : "translate-y-0"}`}
+        className="relative w-full md:max-w-md bg-neutral-900 border border-neutral-800 rounded-t-2xl md:rounded-2xl p-6 shadow-2xl z-10"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           type="button"
           onClick={handleClose}
           className="absolute top-4 right-4 p-1 rounded hover:bg-neutral-800 transition-colors"
-          aria-label="Закрыть"
         >
           <X className="w-5 h-5 text-white" />
         </button>
