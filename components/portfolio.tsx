@@ -23,7 +23,7 @@ export function Portfolio({ items }: PortfolioProps) {
   return (
     <section id="portfolio" className="py-20 md:py-28 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+        <div className="flex flex-col items-center gap-6 mb-10 text-center">
           <div>
             <div className="text-brand-red font-semibold tracking-wider text-sm uppercase mb-3">
               Портфолио
@@ -33,7 +33,7 @@ export function Portfolio({ items }: PortfolioProps) {
             </h2>
           </div>
 
-          <div className="flex gap-2 overflow-x-auto no-scrollbar -mx-4 px-4 md:mx-0 md:px-0">
+          <div className="flex gap-2 overflow-x-auto pb-1 flex-nowrap justify-center [&::-webkit-scrollbar]:h-[2px] [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full">
             {FILTERS.map((f) => (
               <button
                 key={f.id}
