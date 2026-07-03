@@ -9,6 +9,10 @@ function verifyAdminSession(request: NextRequest): boolean {
 
 export async function GET(request: NextRequest) {
   try {
+    if (!verifyAdminSession(request)) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    }
+
     const services = await getServices()
     return NextResponse.json(services)
   } catch (error) {
