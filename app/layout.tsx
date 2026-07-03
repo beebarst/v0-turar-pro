@@ -5,7 +5,7 @@ import { LeadPopup } from "@/components/lead-popup"
 import "./globals.css"
 
 const inter = Inter({
-  subsets: ["latin", "cyrillic"],
+  subsets: ["latin", "cyrillic", "cyrillic-ext"],
   variable: "--font-inter",
   display: "swap",
 })
