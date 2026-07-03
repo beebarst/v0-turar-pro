@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { X } from "lucide-react"
 
-export function LeadPopup() {
+export function LeadPopup({ enabled = true }: { enabled?: boolean }) {
   const [isOpen, setIsOpen] = useState(false)
   const [name, setName] = useState("")
   const [contact, setContact] = useState("")
