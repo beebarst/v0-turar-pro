@@ -32,9 +32,9 @@ interface CalculatorProps {
 }
 
 export function Calculator({ settings, services }: CalculatorProps) {
-  // Discount fraction from settings (fallback 40%).
-  const discount = settings.discountPercent
-  const discountPercent = Math.round(settings.discountPercent * 100)
+  // discountPercent is an integer (e.g. 20), convert to fraction for price math.
+  const discountPercent = settings.discountPercent
+  const discount = settings.discountPercent / 100
   const [openCats, setOpenCats] = useState<Record<string, boolean>>({
     wedding: true,
   })

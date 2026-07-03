@@ -2,8 +2,6 @@
 
 import { useEffect, useState } from "react"
 import { X } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 
 export function LeadPopup() {
   const [isOpen, setIsOpen] = useState(false)
@@ -46,8 +44,8 @@ export function LeadPopup() {
       setTimeout(() => {
         setIsOpen(false)
       }, 2000)
-    } catch (err) {
-      console.log("[v0] Failed to send:", err)
+    } catch {
+      // silent
     } finally {
       setIsLoading(false)
     }
@@ -56,18 +54,20 @@ export function LeadPopup() {
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center p-0 md:p-4 pointer-events-none">
+    <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center p-0 md:p-4">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm pointer-events-auto"
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
         onClick={handleClose}
       />
 
       {/* Popup */}
-      <div className="relative w-full md:w-full max-w-md bg-neutral-900 border border-neutral-800 rounded-t-2xl md:rounded-2xl p-6 animate-in slide-in-from-bottom-5 md:zoom-in-95 pointer-events-auto">
+      <div className="relative w-full md:max-w-md bg-neutral-900 border border-neutral-800 rounded-t-2xl md:rounded-2xl p-6 shadow-2xl z-10">
         <button
+          type="button"
           onClick={handleClose}
-          className="absolute top-4 right-4 p-1 hover:bg-neutral-800 rounded transition-colors"
+          className="absolute top-4 right-4 p-1 rounded hover:bg-neutral-800 transition-colors"
+          aria-label="Закрыть"
         >
           <X className="w-5 h-5 text-white" />
         </button>
@@ -84,36 +84,36 @@ export function LeadPopup() {
         </div>
 
         {isSent ? (
-          <div className="text-center">
-            <p className="text-green-400 font-semibold mb-1">Отправлено! Напишу тебе скоро 👍</p>
+          <div className="text-center py-4">
+            <p className="text-green-400 font-semibold text-lg">Отправлено! Напишу скоро 👍</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
-            <Input
+            <input
               type="text"
               placeholder="Твое имя"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-500"
               disabled={isLoading}
+              className="w-full px-4 py-3 rounded-xl bg-neutral-800 border border-neutral-700 text-white placeholder-neutral-500 text-sm outline-none focus:border-neutral-500 transition-colors disabled:opacity-50"
             />
 
-            <Input
+            <input
               type="text"
               placeholder="Телефон или Telegram"
               value={contact}
               onChange={(e) => setContact(e.target.value)}
-              className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-500"
               disabled={isLoading}
+              className="w-full px-4 py-3 rounded-xl bg-neutral-800 border border-neutral-700 text-white placeholder-neutral-500 text-sm outline-none focus:border-neutral-500 transition-colors disabled:opacity-50"
             />
 
-            <Button
+            <button
               type="submit"
-              className="w-full bg-brand-red hover:bg-red-600 text-white font-semibold"
               disabled={isLoading || !name || !contact}
+              className="w-full py-3 px-4 rounded-xl bg-red-600 hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold text-sm transition-colors"
             >
               {isLoading ? "Отправляю..." : "Узнать свободные даты"}
-            </Button>
+            </button>
           </form>
         )}
       </div>

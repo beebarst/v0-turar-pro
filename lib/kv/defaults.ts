@@ -1,7 +1,7 @@
 import type { Settings, Service, PortfolioItem } from "./client"
 
 export const DEFAULT_SETTINGS: Settings = {
-  discountPercent: 0.4,
+  discountPercent: 20,
   contactPhone: "+7 776 100 10 66",
   telegramLink: "https://t.me/+77761001066",
   whatsappLink: "https://wa.me/77761001066?text=Здравствуйте!%20Пишу%20на%20счет%20монтажа/съемки",
