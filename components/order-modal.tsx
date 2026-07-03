@@ -26,7 +26,7 @@ export function OrderModal({
   onClose,
   items,
   total,
-  discountPercent = 40,
+  discountPercent = 20,
 }: {
   open: boolean
   onClose: () => void
