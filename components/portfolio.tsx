@@ -41,7 +41,7 @@ export function Portfolio({ items }: PortfolioProps) {
   return (
     <section id="portfolio" className="py-20 md:py-28 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+        <div className="flex flex-col gap-6 mb-10">
           <div>
             <div className="text-brand-red font-semibold tracking-wider text-sm uppercase mb-3">
               Портфолио
@@ -54,16 +54,15 @@ export function Portfolio({ items }: PortfolioProps) {
           <div
             className="flex gap-2 overflow-x-auto pb-1 flex-nowrap
               [&::-webkit-scrollbar]:h-[2px]
-              [&::-webkit-scrollbar-track]:bg-transparent
               [&::-webkit-scrollbar-thumb]:bg-white/20
               [&::-webkit-scrollbar-thumb]:rounded-full
-              -mx-4 px-4 md:mx-0 md:px-0"
+              -mx-4 px-4 sm:mx-0 sm:px-0"
           >
             {FILTERS.map((f) => (
               <button
                 key={f.id}
                 onClick={() => setFilter(f.id)}
-                className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium border transition-all ${
+                className={`shrink-0 px-4 py-2 min-h-[44px] rounded-full text-sm font-medium border transition-all ${
                   filter === f.id
                     ? "bg-brand-red border-brand-red text-white"
                     : "border-white/10 text-white/70 hover:border-white/30 hover:text-white"

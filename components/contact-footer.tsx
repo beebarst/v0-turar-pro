@@ -63,7 +63,7 @@ export function ContactFooter({ settings }: ContactFooterProps) {
   }
 
   return (
-    <footer id="contact" className="relative pt-24 md:pt-32 pb-10 px-4">
+    <footer id="contact" className="relative py-20 md:py-28 px-4">
       <div className="mx-auto max-w-5xl">
         {/* Top: consultation form */}
         <div className="text-center max-w-3xl mx-auto">
@@ -155,7 +155,7 @@ export function ContactFooter({ settings }: ContactFooterProps) {
         {/* Phone */}
         <div className="mt-16 text-center">
           <div className="text-white/40 text-sm uppercase tracking-wider mb-2">
-            Прямой звонок
+            Прямо�� звонок
           </div>
           <a
             href={`tel:${settings.contactPhone.replace(/\D/g, "")}`}

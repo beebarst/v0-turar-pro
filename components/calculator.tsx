@@ -119,9 +119,9 @@ export function Calculator({ settings, services }: CalculatorProps) {
             Соберите свой проект — <br className="sm:hidden" />
             <span className="text-brand-red">цена пересчитается мгновенно</span>
           </h2>
-          <p className="mt-4 text-white/60 max-w-xl mx-auto">
-            Все цены уже отображаются со скидкой {discountPercent}%. Базовая стоимость зачёркнута.
-          </p>
+          <div className="text-center text-sm text-white/50 mt-4 mb-0">
+            Цены указаны со скидкой {discountPercent}%
+          </div>
         </div>
 
         <div className="grid lg:grid-cols-[1fr_400px] gap-6 lg:gap-8 items-start">
