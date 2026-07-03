@@ -14,6 +14,7 @@ export type Settings = {
   heroCtaSecondary: string
   heroStats: Array<{ value: string; label: string }>
   headerTagline: string
+  popupEnabled: boolean
 }
 
 export type Service = {
