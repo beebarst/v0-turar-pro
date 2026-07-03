@@ -147,6 +147,18 @@ export function SettingsTab() {
               onChange={(e) => set("heroHeadingAccent", e.target.value)}
               className={inputCls}
             />
+          <div className="flex items-center gap-3 col-span-full">
+            <input
+              type="checkbox"
+              id="popupEnabled"
+              checked={settings.popupEnabled ?? true}
+              onChange={(e) => set("popupEnabled", e.target.checked)}
+              className="w-4 h-4 accent-red-500 cursor-pointer"
+            />
+            <label htmlFor="popupEnabled" className="text-sm text-neutral-300 cursor-pointer">
+              Показывать попап при заходе на сайт
+            </label>
+          </div>
           </div>
           <div>
             <label className={labelCls}>Подзаголовок</label>
