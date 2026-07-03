@@ -15,6 +15,16 @@ export type Settings = {
   heroStats: Array<{ value: string; label: string }>
   headerTagline: string
   popupEnabled: boolean
+  portfolioLabel: string
+  portfolioHeading: string
+  portfolioHeadingAccent: string
+  calculatorLabel: string
+  calculatorHeading: string
+  calculatorHeadingAccent: string
+  contactLabel: string
+  contactHeading: string
+  contactHeadingAccent: string
+  contactSubtext: string
 }
 
 export type Service = {

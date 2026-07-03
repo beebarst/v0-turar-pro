@@ -113,11 +113,11 @@ export function Calculator({ settings, services }: CalculatorProps) {
       <div className="mx-auto max-w-7xl">
         <div className="text-center mb-12">
           <div className="text-brand-red font-semibold tracking-wider text-sm uppercase mb-3">
-            Калькулятор
+            {settings.calculatorLabel}
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-balance leading-tight">
-            Соберите свой проект — <br className="sm:hidden" />
-            <span className="text-brand-red">цена пересчитается мгновенно</span>
+            {settings.calculatorHeading} <br className="sm:hidden" />
+            <span className="text-brand-red">{settings.calculatorHeadingAccent}</span>
           </h2>
           <div className="text-center text-sm text-white/50 mt-4 mb-0">
             Цены указаны со скидкой {discountPercent}%

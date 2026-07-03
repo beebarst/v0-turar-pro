@@ -30,7 +30,7 @@ export default async function Page() {
       </div>
       <SiteHeader settings={finalSettings} />
       <Hero settings={finalSettings} />
-      <Portfolio items={finalPortfolio} />
+      <Portfolio items={finalPortfolio} settings={finalSettings} />
       <Calculator settings={finalSettings} services={finalServices} />
       <ContactFooter settings={finalSettings} />
       <FloatingBadge discountPercent={finalSettings.discountPercent} />

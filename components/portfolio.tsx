@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Play, X } from "lucide-react"
-import type { PortfolioItem } from "@/lib/kv/client"
+import type { PortfolioItem, Settings } from "@/lib/kv/client"
 
 const FILTERS = [
   { id: "all", label: "Все" },
@@ -25,9 +25,10 @@ function toEmbedUrl(url: string): string {
 
 interface PortfolioProps {
   items: PortfolioItem[]
+  settings: Settings
 }
 
-export function Portfolio({ items }: PortfolioProps) {
+export function Portfolio({ items, settings }: PortfolioProps) {
   const [filter, setFilter] = useState<(typeof FILTERS)[number]["id"]>("all")
   const [activeVideo, setActiveVideo] = useState<string | null>(null)
 
@@ -44,10 +45,10 @@ export function Portfolio({ items }: PortfolioProps) {
         <div className="flex flex-col items-center gap-6 mb-10 text-center">
           <div>
             <div className="text-brand-red font-semibold tracking-wider text-sm uppercase mb-3">
-              Портфолио
+              {settings.portfolioLabel}
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-balance">
-              Работы, которые говорят <span className="text-brand-red">сами за себя</span>
+              {settings.portfolioHeading} <span className="text-brand-red">{settings.portfolioHeadingAccent}</span>
             </h2>
           </div>
 

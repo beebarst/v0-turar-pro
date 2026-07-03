@@ -68,14 +68,14 @@ export function ContactFooter({ settings }: ContactFooterProps) {
         {/* Top: consultation form */}
         <div className="text-center max-w-3xl mx-auto">
           <div className="text-brand-red font-semibold tracking-wider text-sm uppercase mb-3">
-            Контакты
+            {settings.contactLabel}
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-balance leading-tight">
-            Остались вопросы? <br className="sm:hidden" />
-            <span className="text-brand-red">Получите бесплатную консультацию</span>
+            {settings.contactHeading} <br className="sm:hidden" />
+            <span className="text-brand-red">{settings.contactHeadingAccent}</span>
           </h2>
           <p className="mt-4 text-white/60 text-pretty">
-            Оставьте номер — перезвоню в течение 15 минут и помогу подобрать оптимальный пакет.
+            {settings.contactSubtext}
           </p>
 
           <form
