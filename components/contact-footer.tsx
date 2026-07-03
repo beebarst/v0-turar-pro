@@ -167,7 +167,7 @@ export function ContactFooter({ settings }: ContactFooterProps) {
 
         {/* Bottom */}
         <div className="mt-20 md:mt-24 pt-8 border-t border-white/5 text-center text-sm text-white/40">
-          © 2026 Бибарыс Тұрар. Все права защище��ы.
+          © 2026 Бибарыс Тұрар. Все права защищены.
         </div>
       </div>
 
