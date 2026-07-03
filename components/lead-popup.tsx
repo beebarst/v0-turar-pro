@@ -12,13 +12,12 @@ export function LeadPopup({ enabled = true }: { enabled?: boolean }) {
   const [isError, setIsError] = useState(false)
 
   useEffect(() => {
-    if (!enabled) return
-    const timer = setTimeout(() => {
-      setIsOpen(true)
-    }, 3000)
-
-    return () => clearTimeout(timer)
-  }, [])
+  const timer = setTimeout(() => {
+    if (window.location.pathname.startsWith("/admin")) return
+    setIsOpen(true)
+  }, 3000)
+  return () => clearTimeout(timer)
+}, [])
 
   const handleClose = () => {
     setIsOpen(false)
