@@ -34,7 +34,7 @@ export default async function Page() {
       <Calculator settings={finalSettings} services={finalServices} />
       <ContactFooter settings={finalSettings} />
       <FloatingBadge discountPercent={finalSettings.discountPercent} />
-      <LeadPopup />
+      <LeadPopup enabled={finalSettings.popupEnabled} />
     </main>
   )
 }
