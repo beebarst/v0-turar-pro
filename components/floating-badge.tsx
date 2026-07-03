@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { Flame } from "lucide-react"
 
-export function FloatingBadge({ discountPercent = 40 }: { discountPercent?: number }) {
+export function FloatingBadge({ discountPercent = 20 }: { discountPercent?: number }) {
   const [seconds, setSeconds] = useState(60 * 60)
 
   useEffect(() => {
