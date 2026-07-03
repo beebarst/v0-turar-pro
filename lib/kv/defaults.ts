@@ -17,6 +17,7 @@ export const DEFAULT_SETTINGS: Settings = {
     { value: "48ч", label: "Сроки сдачи" },
   ],
   headerTagline: "Видеопроизводство полного цикла",
+  popupEnabled: true
 }
 
 export const DEFAULT_SERVICES: Service[] = [
