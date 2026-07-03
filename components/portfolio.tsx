@@ -33,7 +33,7 @@ export function Portfolio({ items }: PortfolioProps) {
 
   const filtered =
     filter === "all"
-      ? [...items].sort((a, b) => (a.globalOrder ?? 999) - (b.globalOrder ?? 999))
+      ? [...items].sort((a, b) => (a.globalOrder ?? a.order ?? 999) - (b.globalOrder ?? b.order ?? 999))
       : [...items]
           .filter((i) => i.category === filter)
           .sort((a, b) => (a.order ?? 999) - (b.order ?? 999))
