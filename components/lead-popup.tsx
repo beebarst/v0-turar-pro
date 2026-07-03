@@ -64,7 +64,7 @@ export function LeadPopup({ enabled = true }: { enabled?: boolean }) {
       />
 
       {/* Popup */}
-      <div className="relative w-full md:max-w-md bg-neutral-900 border border-neutral-800 rounded-t-2xl md:rounded-2xl p-6 shadow-2xl z-10">
+      <div className="relative w-full md:max-w-md bg-neutral-900 border border-neutral-800 rounded-t-2xl md:rounded-2xl p-6 shadow-2xl z-10" onClick={(e) => e.stopPropagation()}>
         <button
           type="button"
           onClick={handleClose}
