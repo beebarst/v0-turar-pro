@@ -55,6 +55,7 @@ export type PortfolioItem = {
   description?: string
   tags?: string
   orientation?: "horizontal" | "vertical"
+  externalUrl?: string
 }
 const SETTINGS_KEY = "turar_settings"
 const SERVICES_KEY = "turar_services"
