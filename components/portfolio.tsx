@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Play } from "lucide-react"
+import { Play, X } from "lucide-react"
 import type { PortfolioItem } from "@/lib/kv/client"
 
 const FILTERS = [
@@ -12,12 +12,22 @@ const FILTERS = [
   { id: "business", label: "Бизнес" },
 ] as const
 
+function toEmbedUrl(url: string): string {
+  const short = url.match(/youtu\.be\/([^?&]+)/)
+  if (short) return `https://www.youtube.com/embed/${short[1]}?autoplay=1`
+  const full = url.match(/[?&]v=([^?&]+)/)
+  if (full) return `https://www.youtube.com/embed/${full[1]}?autoplay=1`
+  return url
+}
+
 interface PortfolioProps {
   items: PortfolioItem[]
 }
 
 export function Portfolio({ items }: PortfolioProps) {
   const [filter, setFilter] = useState<(typeof FILTERS)[number]["id"]>("all")
+  const [activeVideo, setActiveVideo] = useState<string | null>(null)
+
   const filtered = filter === "all" ? items : items.filter((i) => i.category === filter)
 
   return (
@@ -32,7 +42,6 @@ export function Portfolio({ items }: PortfolioProps) {
               Работы, которые говорят <span className="text-brand-red">сами за себя</span>
             </h2>
           </div>
-
           <div className="flex gap-2 overflow-x-auto pb-1 flex-nowrap justify-center [&::-webkit-scrollbar]:h-[2px] [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full">
             {FILTERS.map((f) => (
               <button
@@ -54,6 +63,7 @@ export function Portfolio({ items }: PortfolioProps) {
           {filtered.map((item, idx) => (
             <div
               key={item.id}
+              onClick={() => item.videoUrl && setActiveVideo(item.videoUrl)}
               className={`group relative aspect-video rounded-2xl overflow-hidden border border-white/5 cursor-pointer bg-gradient-to-br from-neutral-900 to-neutral-800 ${
                 idx === 0 ? "lg:col-span-2 lg:row-span-2 lg:aspect-auto lg:min-h-[420px]" : ""
               }`}
@@ -79,6 +89,33 @@ export function Portfolio({ items }: PortfolioProps) {
           ))}
         </div>
       </div>
+
+      {activeVideo && (
+        <div
+          className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={() => setActiveVideo(null)}
+        >
+          <div
+            className="relative w-full max-w-4xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setActiveVideo(null)}
+              className="absolute -top-10 right-0 flex items-center gap-2 text-white/70 hover:text-white transition-colors"
+            >
+              <X className="w-5 h-5" /> Закрыть
+            </button>
+            <div className="aspect-video w-full">
+              <iframe
+                src={toEmbedUrl(activeVideo)}
+                className="w-full h-full rounded-xl"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
