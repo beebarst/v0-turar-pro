@@ -28,6 +28,9 @@ export type Settings = {
   contactHeadingAccent: string
   contactHeadingSize: "sm" | "md" | "lg" | "xl"
   contactSubtext: string
+  popupHeading: string
+  popupSubheading: string
+  popupButtonText: string
 }
 
 export type Service = {
