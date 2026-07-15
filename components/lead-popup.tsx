@@ -2,8 +2,14 @@
 
 import { useEffect, useState } from "react"
 import { X } from "lucide-react"
+import type { Settings } from "@/lib/kv/client"
 
-export function LeadPopup({ enabled = true }: { enabled?: boolean }) {
+interface LeadPopupProps {
+  enabled?: boolean
+  settings?: Settings
+}
+
+export function LeadPopup({ enabled = true, settings }: LeadPopupProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [name, setName] = useState("")
   const [contact, setContact] = useState("")
@@ -11,13 +17,18 @@ export function LeadPopup({ enabled = true }: { enabled?: boolean }) {
   const [isSent, setIsSent] = useState(false)
   const [isError, setIsError] = useState(false)
 
+  const heading = settings?.popupHeading ?? "Свободные даты разбирают быстро"
+  const subheading = settings?.popupSubheading ?? "Оставь контакт — я напишу с актуальным расписанием"
+  const buttonText = settings?.popupButtonText ?? "Узнать свободные даты"
+
   useEffect(() => {
     const timer = setTimeout(() => {
       if (window.location.pathname.startsWith("/admin")) return
+      if (!enabled) return
       setIsOpen(true)
     }, 3000)
     return () => clearTimeout(timer)
-  }, [])
+  }, [enabled])
 
   const handleClose = () => setIsOpen(false)
 
@@ -64,12 +75,10 @@ export function LeadPopup({ enabled = true }: { enabled?: boolean }) {
 
         <div className="mb-6">
           <h2 className="text-xl font-bold text-white mb-2">
-            {isSent ? "Отправлено!" : "Свободные даты разбирают быстро"}
+            {isSent ? "Отправлено!" : heading}
           </h2>
           {!isSent && (
-            <p className="text-sm text-neutral-400">
-              Оставь контакт — я напишу с актуальным расписанием
-            </p>
+            <p className="text-sm text-neutral-400">{subheading}</p>
           )}
         </div>
 
@@ -100,7 +109,7 @@ export function LeadPopup({ enabled = true }: { enabled?: boolean }) {
               disabled={isLoading || !name || !contact}
               className="w-full py-3 px-4 rounded-xl bg-red-600 hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold text-sm transition-colors"
             >
-              {isLoading ? "Отправляю..." : "Узнать свободные даты"}
+              {isLoading ? "Отправляю..." : buttonText}
             </button>
             {isError && (
               <p className="text-sm text-red-400 text-center">
