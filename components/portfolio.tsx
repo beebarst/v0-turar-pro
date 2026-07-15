@@ -2,8 +2,7 @@
 
 import { useState } from "react"
 import { Play, X } from "lucide-react"
-import type { PortfolioItem } from "@/lib/kv/client"
-import type { Settings } from "@/lib/kv/client"
+import type { PortfolioItem, Settings } from "@/lib/kv/client"
 
 const FILTERS = [
   { id: "all", label: "Все" },
@@ -51,10 +50,12 @@ export function Portfolio({ items, settings }: PortfolioProps) {
   const accent = settings?.portfolioHeadingAccent ?? "сами за себя"
   const size = settings?.portfolioHeadingSize ?? "lg"
 
+  const activeItem = items.find(i => i.videoUrl === activeVideo)
+
   return (
     <section id="portfolio" className="py-20 md:py-28 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
-<div className="flex flex-col gap-6 mb-10 text-center">
+        <div className="flex flex-col gap-6 mb-10 text-center">
           <div>
             <div className="text-brand-red font-semibold tracking-wider text-sm uppercase mb-3">
               {label}
@@ -63,7 +64,7 @@ export function Portfolio({ items, settings }: PortfolioProps) {
               {heading} <span className="text-brand-red">{accent}</span>
             </h2>
           </div>
-<div className="flex gap-2 overflow-x-auto pb-1 flex-nowrap justify-center [&::-webkit-scrollbar]:h-[2px] [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full">
+          <div className="flex gap-2 overflow-x-auto pb-1 flex-nowrap justify-center [&::-webkit-scrollbar]:h-[2px] [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full">
             {FILTERS.map((f) => (
               <button
                 key={f.id}
@@ -80,13 +81,17 @@ export function Portfolio({ items, settings }: PortfolioProps) {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 auto-rows-[200px]">
           {filtered.map((item, idx) => (
             <div
               key={item.id}
               onClick={() => item.videoUrl && setActiveVideo(item.videoUrl)}
-              className={`group relative aspect-video rounded-2xl overflow-hidden border border-white/5 cursor-pointer bg-gradient-to-br from-neutral-900 to-neutral-800 ${
-                idx === 0 ? "lg:col-span-2 lg:row-span-2 lg:aspect-auto lg:min-h-[420px]" : ""
+              className={`group relative rounded-2xl overflow-hidden border border-white/5 cursor-pointer bg-gradient-to-br from-neutral-900 to-neutral-800 ${
+                item.orientation === "vertical"
+                  ? "row-span-2"
+                  : idx === 0
+                  ? "col-span-2 row-span-2"
+                  : ""
               }`}
               style={
                 item.imageUrl
@@ -100,11 +105,11 @@ export function Portfolio({ items, settings }: PortfolioProps) {
                   <Play className="h-6 w-6 text-white ml-1" fill="currentColor" />
                 </div>
               </div>
-              <div className="absolute bottom-0 left-0 right-0 p-5">
+              <div className="absolute bottom-0 left-0 right-0 p-4">
                 <div className="text-xs uppercase tracking-wider text-brand-red font-semibold mb-1">
                   {item.tag}
                 </div>
-                <div className="text-white font-semibold text-lg">{item.title}</div>
+                <div className="text-white font-semibold text-sm">{item.title}</div>
               </div>
             </div>
           ))}
@@ -117,7 +122,7 @@ export function Portfolio({ items, settings }: PortfolioProps) {
           onClick={() => setActiveVideo(null)}
         >
           <div
-            className="relative w-full max-w-4xl"
+            className={`relative ${activeItem?.orientation === "vertical" ? "w-full max-w-sm" : "w-full max-w-4xl"}`}
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -126,7 +131,7 @@ export function Portfolio({ items, settings }: PortfolioProps) {
             >
               <X className="w-5 h-5" /> Закрыть
             </button>
-            <div className="aspect-video w-full">
+            <div className={activeItem?.orientation === "vertical" ? "aspect-[9/16] w-full" : "aspect-video w-full"}>
               <iframe
                 src={toEmbedUrl(activeVideo)}
                 className="w-full h-full rounded-xl"
@@ -134,6 +139,24 @@ export function Portfolio({ items, settings }: PortfolioProps) {
                 allowFullScreen
               />
             </div>
+            {(activeItem?.description || activeItem?.tags) && (
+              <div className="mt-4 px-1">
+                {activeItem.description && (
+                  <p className="text-white/70 text-sm leading-relaxed mb-3">
+                    {activeItem.description}
+                  </p>
+                )}
+                {activeItem.tags && (
+                  <div className="flex flex-wrap gap-2">
+                    {activeItem.tags.split(" ").filter(Boolean).map((tag, i) => (
+                      <span key={i} className="text-xs text-brand-red bg-brand-red/10 px-2 py-1 rounded-full">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       )}
