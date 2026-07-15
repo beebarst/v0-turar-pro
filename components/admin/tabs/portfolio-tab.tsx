@@ -94,7 +94,7 @@ export function PortfolioTab() {
                 className={inputCls}
               />
             </div>
-            <div>
+<div>
               <label className={labelCls}>Категория</label>
               <select
                 value={item.category}
@@ -106,6 +106,17 @@ export function PortfolioTab() {
                     {CATEGORY_LABELS[cat]}
                   </option>
                 ))}
+              </select>
+            </div>
+            <div>
+              <label className={labelCls}>Ориентация</label>
+              <select
+                value={item.orientation ?? "horizontal"}
+                onChange={(e) => handleUpdate(item.id, "orientation", e.target.value)}
+                className={inputCls}
+              >
+                <option value="horizontal">Горизонтальное</option>
+                <option value="vertical">Вертикальное (Reels/TikTok)</option>
               </select>
             </div>
             <div>
@@ -153,6 +164,26 @@ export function PortfolioTab() {
               placeholder="https://..."
               value={item.videoUrl ?? ""}
               onChange={(e) => handleUpdate(item.id, "videoUrl", e.target.value)}
+              className={inputCls}
+            />
+          </div>
+         <div className="mt-4">
+            <label className={labelCls}>Описание работы</label>
+            <textarea
+              rows={3}
+              placeholder="Работал над этим проектом..."
+              value={item.description ?? ""}
+              onChange={(e) => handleUpdate(item.id, "description", e.target.value)}
+              className={inputCls}
+            />
+          </div>
+          <div className="mt-4">
+            <label className={labelCls}>Теги (через пробел)</label>
+            <input
+              type="text"
+              placeholder="#монтаж #сценарий #reels"
+              value={item.tags ?? ""}
+              onChange={(e) => handleUpdate(item.id, "tags", e.target.value)}
               className={inputCls}
             />
           </div>
