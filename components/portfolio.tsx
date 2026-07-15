@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Play, X } from "lucide-react"
 import type { PortfolioItem } from "@/lib/kv/client"
+import type { Settings } from "@/lib/kv/client"
 
 const FILTERS = [
   { id: "all", label: "Все" },
@@ -20,29 +21,49 @@ function toEmbedUrl(url: string): string {
   return url
 }
 
-interface PortfolioProps {
-  items: PortfolioItem[]
+function headingSize(size?: string) {
+  switch (size) {
+    case "sm": return "text-2xl sm:text-3xl md:text-4xl"
+    case "md": return "text-3xl sm:text-4xl md:text-4xl"
+    case "lg": return "text-3xl sm:text-4xl md:text-5xl"
+    case "xl": return "text-4xl sm:text-5xl md:text-6xl"
+    default:   return "text-3xl sm:text-4xl md:text-5xl"
+  }
 }
 
-export function Portfolio({ items }: PortfolioProps) {
+interface PortfolioProps {
+  items: PortfolioItem[]
+  settings?: Settings
+}
+
+export function Portfolio({ items, settings }: PortfolioProps) {
   const [filter, setFilter] = useState<(typeof FILTERS)[number]["id"]>("all")
   const [activeVideo, setActiveVideo] = useState<string | null>(null)
 
-  const filtered = filter === "all" ? items : items.filter((i) => i.category === filter)
+  const filtered = filter === "all"
+    ? [...items].sort((a, b) => (a.globalOrder ?? a.order ?? 999) - (b.globalOrder ?? b.order ?? 999))
+    : [...items]
+        .filter((i) => i.category === filter)
+        .sort((a, b) => (a.order ?? 999) - (b.order ?? 999))
+
+  const label = settings?.portfolioLabel ?? "Портфолио"
+  const heading = settings?.portfolioHeading ?? "Работы, которые говорят"
+  const accent = settings?.portfolioHeadingAccent ?? "сами за себя"
+  const size = settings?.portfolioHeadingSize ?? "lg"
 
   return (
     <section id="portfolio" className="py-20 md:py-28 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
-        <div className="flex flex-col items-center gap-6 mb-10 text-center">
+        <div className="flex flex-col gap-6 mb-10">
           <div>
             <div className="text-brand-red font-semibold tracking-wider text-sm uppercase mb-3">
-              Портфолио
+              {label}
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-balance">
-              Работы, которые говорят <span className="text-brand-red">сами за себя</span>
+            <h2 className={`${headingSize(size)} font-bold tracking-tight text-balance`}>
+              {heading} <span className="text-brand-red">{accent}</span>
             </h2>
           </div>
-          <div className="flex gap-2 overflow-x-auto pb-1 flex-nowrap justify-center [&::-webkit-scrollbar]:h-[2px] [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full">
+          <div className="flex gap-2 overflow-x-auto pb-1 flex-nowrap [&::-webkit-scrollbar]:h-[2px] [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full">
             {FILTERS.map((f) => (
               <button
                 key={f.id}
