@@ -147,7 +147,10 @@ export function SettingsTab() {
               onChange={(e) => set("heroHeadingAccent", e.target.value)}
               className={inputCls}
             />
-          <div className="flex items-center gap-3 col-span-full">
+          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
+        <h2 className="text-lg font-semibold text-white mb-4">Попап при заходе</h2>
+        <div className="space-y-4">
+          <div className="flex items-center gap-3">
             <input
               type="checkbox"
               id="popupEnabled"
@@ -159,6 +162,20 @@ export function SettingsTab() {
               Показывать попап при заходе на сайт
             </label>
           </div>
+          <div>
+            <label className={labelCls}>Заголовок</label>
+            <input type="text" value={settings.popupHeading ?? ""} onChange={(e) => set("popupHeading", e.target.value)} className={inputCls} />
+          </div>
+          <div>
+            <label className={labelCls}>Подзаголовок</label>
+            <input type="text" value={settings.popupSubheading ?? ""} onChange={(e) => set("popupSubheading", e.target.value)} className={inputCls} />
+          </div>
+          <div>
+            <label className={labelCls}>Текст кнопки</label>
+            <input type="text" value={settings.popupButtonText ?? ""} onChange={(e) => set("popupButtonText", e.target.value)} className={inputCls} />
+          </div>
+        </div>
+      </div>
           </div>
           <div>
             <label className={labelCls}>Подзаголовок</label>
