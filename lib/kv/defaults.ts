@@ -31,6 +31,9 @@ export const DEFAULT_SETTINGS: Settings = {
   contactHeadingAccent: "Получите бесплатную консультацию",
   contactHeadingSize: "lg",
   contactSubtext: "Оставьте номер — перезвоню в течение 15 минут и помогу подобрать оптимальный пакет",
+  popupHeading: "Свободные даты разбирают быстро",
+  popupSubheading: "Оставь контакт — я напишу с актуальным расписанием",
+  popupButtonText: "Узнать свободные даты",
 }
 
 export const DEFAULT_SERVICES: Service[] = [
