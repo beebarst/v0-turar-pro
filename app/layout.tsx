@@ -30,8 +30,18 @@ export default function RootLayout({
   return (
     <html lang="ru" className={`${inter.variable} bg-background dark`}>
       <head>
-        {/* META PIXEL: ТВОЙ_ID_ПИКСЕЛЯ_ЗДЕСЬ */}
-      </head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V2R4YLB3ZE" />
+  <script
+    dangerouslySetInnerHTML={{
+      __html: `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-V2R4YLB3ZE');
+      `,
+    }}
+  />
+</head>
       <body className="font-sans antialiased bg-transparent text-white overflow-x-hidden">
         {children}
         {process.env.NODE_ENV === "production" && <Analytics />}
