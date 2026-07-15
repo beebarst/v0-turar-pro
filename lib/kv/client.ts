@@ -15,6 +15,19 @@ export type Settings = {
   heroStats: Array<{ value: string; label: string }>
   headerTagline: string
   popupEnabled: boolean
+  portfolioLabel: string
+  portfolioHeading: string
+  portfolioHeadingAccent: string
+  portfolioHeadingSize: "sm" | "md" | "lg" | "xl"
+  calculatorLabel: string
+  calculatorHeading: string
+  calculatorHeadingAccent: string
+  calculatorHeadingSize: "sm" | "md" | "lg" | "xl"
+  contactLabel: string
+  contactHeading: string
+  contactHeadingAccent: string
+  contactHeadingSize: "sm" | "md" | "lg" | "xl"
+  contactSubtext: string
 }
 
 export type Service = {
@@ -35,8 +48,8 @@ export type PortfolioItem = {
   imageUrl: string
   videoUrl: string
   order?: number
+  globalOrder?: number
 }
-
 const SETTINGS_KEY = "turar_settings"
 const SERVICES_KEY = "turar_services"
 const PORTFOLIO_KEY = "turar_portfolio"
