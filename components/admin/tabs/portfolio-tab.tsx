@@ -167,6 +167,16 @@ export function PortfolioTab() {
               className={inputCls}
             />
           </div>
+          <div className="mt-4">
+            <label className={labelCls}>Ссылка на оф. канал (YouTube/TikTok)</label>
+            <input
+              type="text"
+              placeholder="https://youtube.com/shorts/..."
+              value={item.externalUrl ?? ""}
+              onChange={(e) => handleUpdate(item.id, "externalUrl", e.target.value)}
+              className={inputCls}
+            />
+          </div>
          <div className="mt-4">
             <label className={labelCls}>Описание работы</label>
             <textarea
