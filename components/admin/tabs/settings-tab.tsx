@@ -214,7 +214,99 @@ export function SettingsTab() {
           </div>
         </div>
       </div>
+{/* Секция Портфолио */}
+      <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
+        <h2 className="text-lg font-semibold text-white mb-4">Секция Портфолио</h2>
+        <div className="space-y-4">
+          <div>
+            <label className={labelCls}>Лейбл</label>
+            <input type="text" value={settings.portfolioLabel ?? ""} onChange={(e) => set("portfolioLabel", e.target.value)} className={inputCls} />
+          </div>
+          <div>
+            <label className={labelCls}>Заголовок (белый текст)</label>
+            <input type="text" value={settings.portfolioHeading ?? ""} onChange={(e) => set("portfolioHeading", e.target.value)} className={inputCls} />
+          </div>
+          <div>
+            <label className={labelCls}>Заголовок (красный акцент)</label>
+            <input type="text" value={settings.portfolioHeadingAccent ?? ""} onChange={(e) => set("portfolioHeadingAccent", e.target.value)} className={inputCls} />
+          </div>
+          <div>
+            <label className={labelCls}>Размер заголовка</label>
+            <select value={settings.portfolioHeadingSize ?? "lg"} onChange={(e) => set("portfolioHeadingSize", e.target.value)} className={inputCls}>
+              <option value="sm">Маленький</option>
+              <option value="md">Средний</option>
+              <option value="lg">Большой</option>
+              <option value="xl">Огромный</option>
+            </select>
+          </div>
+        </div>
+      </div>
 
+      {/* Секция Калькулятор */}
+      <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
+        <h2 className="text-lg font-semibold text-white mb-4">Секция Калькулятор</h2>
+        <div className="space-y-4">
+          <div>
+            <label className={labelCls}>Лейбл</label>
+            <input type="text" value={settings.calculatorLabel ?? ""} onChange={(e) => set("calculatorLabel", e.target.value)} className={inputCls} />
+          </div>
+          <div>
+            <label className={labelCls}>Заголовок (белый текст)</label>
+            <input type="text" value={settings.calculatorHeading ?? ""} onChange={(e) => set("calculatorHeading", e.target.value)} className={inputCls} />
+          </div>
+          <div>
+            <label className={labelCls}>Заголовок (красный акцент)</label>
+            <input type="text" value={settings.calculatorHeadingAccent ?? ""} onChange={(e) => set("calculatorHeadingAccent", e.target.value)} className={inputCls} />
+          </div>
+          <div>
+            <label className={labelCls}>Размер заголовка</label>
+            <select value={settings.calculatorHeadingSize ?? "lg"} onChange={(e) => set("calculatorHeadingSize", e.target.value)} className={inputCls}>
+              <option value="sm">Маленький</option>
+              <option value="md">Средний</option>
+              <option value="lg">Большой</option>
+              <option value="xl">Огромный</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      {/* Секция Контакты */}
+      <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
+        <h2 className="text-lg font-semibold text-white mb-4">Секция Контакты</h2>
+        <div className="space-y-4">
+          <div>
+            <label className={labelCls}>Лейбл</label>
+            <input type="text" value={settings.contactLabel ?? ""} onChange={(e) => set("contactLabel", e.target.value)} className={inputCls} />
+          </div>
+          <div>
+            <label className={labelCls}>Заголовок (белый текст)</label>
+            <input type="text" value={settings.contactHeading ?? ""} onChange={(e) => set("contactHeading", e.target.value)} className={inputCls} />
+          </div>
+          <div>
+            <label className={labelCls}>Заголовок (красный акцент)</label>
+            <input type="text" value={settings.contactHeadingAccent ?? ""} onChange={(e) => set("contactHeadingAccent", e.target.value)} className={inputCls} />
+          </div>
+          <div>
+            <label className={labelCls}>Размер заголовка</label>
+            <select value={settings.contactHeadingSize ?? "lg"} onChange={(e) => set("contactHeadingSize", e.target.value)} className={inputCls}>
+              <option value="sm">Маленький</option>
+              <option value="md">Средний</option>
+              <option value="lg">Большой</option>
+              <option value="xl">Огромный</option>
+            </select>
+          </div>
+          <div>
+            <label className={labelCls}>Подзаголовок/текст</label>
+            <textarea
+              value={settings.contactSubtext ?? ""}
+              onChange={(e) => set("contactSubtext", e.target.value)}
+              rows={3}
+              className={inputCls}
+              style={{ whiteSpace: "pre-line" }}
+            />
+          </div>
+        </div>
+      </div>
       {message && (
         <div
           className={`p-4 rounded-lg text-sm font-medium ${
