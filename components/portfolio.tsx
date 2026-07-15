@@ -146,7 +146,7 @@ export function Portfolio({ items, settings }: PortfolioProps) {
                     {activeItem.description}
                   </p>
                 )}
-{activeItem.tags && (
+                {activeItem.tags && (
                   <div className="flex flex-wrap gap-2">
                     {activeItem.tags.split(" ").filter(Boolean).map((tag, i) => (
                       <span key={i} className="text-xs text-brand-red bg-brand-red/10 px-2 py-1 rounded-full">
@@ -156,7 +156,7 @@ export function Portfolio({ items, settings }: PortfolioProps) {
                   </div>
                 )}
                 {activeItem.externalUrl && (
-                  
+                  <a
                     href={activeItem.externalUrl}
                     target="_blank"
                     rel="noopener noreferrer"
