@@ -17,7 +17,20 @@ export const DEFAULT_SETTINGS: Settings = {
     { value: "48ч", label: "Сроки сдачи" },
   ],
   headerTagline: "Видеопроизводство полного цикла",
-  popupEnabled: true
+  popupEnabled: true,
+  portfolioLabel: "Портфолио",
+  portfolioHeading: "Работы, которые говорят",
+  portfolioHeadingAccent: "сами за себя",
+  portfolioHeadingSize: "lg",
+  calculatorLabel: "Калькулятор",
+  calculatorHeading: "Соберите свой проект —",
+  calculatorHeadingAccent: "цена пересчитается мгновенно",
+  calculatorHeadingSize: "lg",
+  contactLabel: "Контакты",
+  contactHeading: "Остались вопросы?",
+  contactHeadingAccent: "Получите бесплатную консультацию",
+  contactHeadingSize: "lg",
+  contactSubtext: "Оставьте номер — перезвоню в течение 15 минут и помогу подобрать оптимальный пакет",
 }
 
 export const DEFAULT_SERVICES: Service[] = [
