@@ -52,6 +52,9 @@ export type PortfolioItem = {
   videoUrl: string
   order?: number
   globalOrder?: number
+  description?: string
+  tags?: string
+  orientation?: "horizontal" | "vertical"
 }
 const SETTINGS_KEY = "turar_settings"
 const SERVICES_KEY = "turar_services"
