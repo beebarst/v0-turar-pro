@@ -5,7 +5,15 @@ import { ChevronDown, Plus, Minus, Check, Trash2, ShoppingBag, Heart, GlassWater
 import { AnimatedNumber } from "./animated-number"
 import { OrderModal, type SelectedItem } from "./order-modal"
 import type { Service, Settings } from "@/lib/kv/client"
-
+function headingSize(size?: string) {
+  switch (size) {
+    case "sm": return "text-2xl sm:text-3xl md:text-4xl"
+    case "md": return "text-3xl sm:text-4xl md:text-4xl"
+    case "lg": return "text-3xl sm:text-4xl md:text-5xl"
+    case "xl": return "text-4xl sm:text-5xl md:text-6xl"
+    default:   return "text-3xl sm:text-4xl md:text-5xl"
+  }
+}
 type Selection = Record<string, number> // serviceId -> qty (1 = selected, or hours for hourly)
 
 const CATEGORY_ICONS: Record<string, React.ReactNode> = {
@@ -111,16 +119,16 @@ export function Calculator({ settings, services }: CalculatorProps) {
       className="py-20 md:py-28 px-4 scroll-mt-20"
     >
       <div className="mx-auto max-w-7xl">
-        <div className="text-center mb-12">
+       <div className="text-center mb-12">
           <div className="text-brand-red font-semibold tracking-wider text-sm uppercase mb-3">
-            Калькулятор
+            {settings.calculatorLabel ?? "Калькулятор"}
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-balance leading-tight">
-            Соберите свой проект — <br className="sm:hidden" />
-            <span className="text-brand-red">цена пересчитается мгновенно</span>
+          <h2 className={`${headingSize(settings.calculatorHeadingSize)} font-bold tracking-tight text-balance leading-tight`}>
+            {settings.calculatorHeading ?? "Соберите свой проект —"}{" "}
+            <span className="text-brand-red">{settings.calculatorHeadingAccent ?? "цена пересчитается мгновенно"}</span>
           </h2>
           <p className="mt-4 text-white/60 max-w-xl mx-auto">
-            Все цены уже отображаются со скидкой {discountPercent}%. Базовая стоимость зачёркнута.
+            Цены указаны со скидкой {discountPercent}%
           </p>
         </div>
 
