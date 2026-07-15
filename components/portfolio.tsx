@@ -63,7 +63,7 @@ export function Portfolio({ items, settings }: PortfolioProps) {
               {heading} <span className="text-brand-red">{accent}</span>
             </h2>
           </div>
-<div className="flex gap-2 overflow-x-auto pb-1 flex-nowrap [&::-webkit-scrollbar]:h-[2px] [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full"> <div className="flex gap-2 overflow-x-auto pb-1 flex-nowrap [&::-webkit-scrollbar]:h-[2px] [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full">
+<div className="flex gap-2 overflow-x-auto pb-1 flex-nowrap justify-center [&::-webkit-scrollbar]:h-[2px] [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full">
             {FILTERS.map((f) => (
               <button
                 key={f.id}
