@@ -118,11 +118,20 @@ export function PortfolioTab() {
               />
             </div>
             <div>
-              <label className={labelCls}>Порядок</label>
+              <label className={labelCls}>Порядок (в категории)</label>
               <input
                 type="number"
                 value={item.order ?? 0}
                 onChange={(e) => handleUpdate(item.id, "order", parseInt(e.target.value) || 0)}
+                className={inputCls}
+              />
+            </div>
+            <div>
+              <label className={labelCls}>Порядок (в разделе Все)</label>
+              <input
+                type="number"
+                value={item.globalOrder ?? 0}
+                onChange={(e) => handleUpdate(item.id, "globalOrder", parseInt(e.target.value) || 0)}
                 className={inputCls}
               />
             </div>
