@@ -3,7 +3,15 @@
 import { useState } from "react"
 import { Loader2, CheckCircle2 } from "lucide-react"
 import type { Settings } from "@/lib/kv/client"
-
+function headingSize(size?: string) {
+  switch (size) {
+    case "sm": return "text-2xl sm:text-3xl md:text-4xl"
+    case "md": return "text-3xl sm:text-4xl md:text-4xl"
+    case "lg": return "text-3xl sm:text-4xl md:text-5xl"
+    case "xl": return "text-4xl sm:text-5xl md:text-6xl"
+    default:   return "text-3xl sm:text-4xl md:text-5xl"
+  }
+}
 interface ContactFooterProps {
   settings: Settings
 }
@@ -67,17 +75,16 @@ export function ContactFooter({ settings }: ContactFooterProps) {
       <div className="mx-auto max-w-5xl">
         {/* Top: consultation form */}
         <div className="text-center max-w-3xl mx-auto">
-          <div className="text-brand-red font-semibold tracking-wider text-sm uppercase mb-3">
-            Контакты
+<div className="text-brand-red font-semibold tracking-wider text-sm uppercase mb-3">
+            {settings.contactLabel ?? "Контакты"}
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-balance leading-tight">
-            Остались вопросы? <br className="sm:hidden" />
-            <span className="text-brand-red">Получите бесплатную консультацию</span>
+          <h2 className={`${headingSize(settings.contactHeadingSize)} font-bold tracking-tight text-balance leading-tight`}>
+            {settings.contactHeading ?? "Остались вопросы?"}{" "}
+            <span className="text-brand-red">{settings.contactHeadingAccent ?? "Получите бесплатную консультацию"}</span>
           </h2>
-          <p className="mt-4 text-white/60 text-pretty">
-            Оставьте номер — перезвоню в течение 15 минут и помогу подобрать оптимальный пакет.
+          <p className="mt-4 text-white/60 text-pretty" style={{ whiteSpace: "pre-line" }}>
+            {settings.contactSubtext ?? "Оставьте номер — перезвоню в течение 15 минут и помогу подобрать оптимальный пакет."}
           </p>
-
           <form
             onSubmit={submit}
             className="mt-8 flex flex-col sm:flex-row gap-3 max-w-xl mx-auto"
