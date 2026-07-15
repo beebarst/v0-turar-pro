@@ -54,7 +54,7 @@ export function Portfolio({ items, settings }: PortfolioProps) {
   return (
     <section id="portfolio" className="py-20 md:py-28 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
-        <div className="flex flex-col gap-6 mb-10">
+<div className="flex flex-col gap-6 mb-10 text-center">
           <div>
             <div className="text-brand-red font-semibold tracking-wider text-sm uppercase mb-3">
               {label}
