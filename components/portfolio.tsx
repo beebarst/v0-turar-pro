@@ -99,7 +99,7 @@ export function Portfolio({ items, settings }: PortfolioProps) {
                   : {}
               }
             >
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="h-14 w-14 md:h-16 md:w-16 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center group-hover:scale-110 group-hover:bg-brand-red transition-all duration-300">
                   <Play className="h-6 w-6 text-white ml-1" fill="currentColor" />
