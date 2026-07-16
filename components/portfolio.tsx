@@ -99,7 +99,11 @@ export function Portfolio({ items, settings }: PortfolioProps) {
                   : {}
               }
             >
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+              {/* Общее лёгкое затемнение — чтобы play-кнопка не терялась */}
+<div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+
+{/* Плотный градиент под текст — только нижняя часть карточки */}
+<div className="absolute bottom-0 left-0 right-0 h-2/3 bg-[linear-gradient(to_top,rgba(0,0,0,0.95)_0%,rgba(0,0,0,0.65)_45%,transparent_100%)]" />
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="h-14 w-14 md:h-16 md:w-16 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center group-hover:scale-110 group-hover:bg-brand-red transition-all duration-300">
                   <Play className="h-6 w-6 text-white ml-1" fill="currentColor" />
