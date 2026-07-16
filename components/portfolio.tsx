@@ -118,11 +118,11 @@ export function Portfolio({ items, settings }: PortfolioProps) {
 
       {activeVideo && (
         <div
-          className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
+          className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-start justify-center p-4 overflow-y-auto"
           onClick={() => setActiveVideo(null)}
         >
           <div
-            className={`relative ${activeItem?.orientation === "vertical" ? "w-full max-w-sm" : "w-full max-w-4xl"}`}
+            className={`relative mt-12 mb-8 ${activeItem?.orientation === "vertical" ? "w-full max-w-[280px]" : "w-full max-w-3xl"}`}
             onClick={(e) => e.stopPropagation()}
           >
             <button
