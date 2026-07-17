@@ -86,7 +86,7 @@ export function Portfolio({ items, settings }: PortfolioProps) {
             <div
               key={item.id}
               onClick={() => item.videoUrl && setActiveVideo(item.videoUrl)}
-              className={`group relative rounded-2xl overflow-hidden border border-white/5 cursor-pointer bg-gradient-to-br from-neutral-900 to-neutral-800 ${
+              className={`group relative rounded-2xl overflow-hidden border border-red-900/60 hover:border-red-700/80 transition-colors cursor-pointer bg-gradient-to-br from-neutral-900 to-neutral-800 ${
                 item.orientation === "vertical"
                   ? "row-span-2"
                   : idx === 0
