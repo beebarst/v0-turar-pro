@@ -6,10 +6,10 @@ import type { PortfolioItem, Settings } from "@/lib/kv/client"
 
 const FILTERS = [
   { id: "all", label: "Все" },
-  { id: "wedding", label: "Свадьбы" },
+  { id: "wedding", label: "Свадебное кино" },
   { id: "events", label: "Мероприятия" },
+  { id: "business", label: "Коммерция" },
   { id: "social", label: "Соцсети" },
-  { id: "business", label: "Бизнес" },
 ] as const
 
 function toEmbedUrl(url: string): string {
