@@ -12,10 +12,10 @@ const labelCls = "block text-sm font-medium text-neutral-300 mb-1"
 const CATEGORIES = ["wedding", "events", "social", "business"] as const
 
 const CATEGORY_LABELS: Record<string, string> = {
-  wedding: "Свадьбы",
+  wedding: "Свадебное кино",
   events: "Мероприятия",
+  business: "Коммерция",
   social: "Соцсети",
-  business: "Бизнес",
 }
 
 export function PortfolioTab() {
