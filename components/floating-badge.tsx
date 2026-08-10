@@ -7,13 +7,18 @@ export function FloatingBadge({ discountPercent = 20 }: { discountPercent?: numb
   const [seconds, setSeconds] = useState(60 * 60)
 
   useEffect(() => {
-    const stored = sessionStorage.getItem("turar_discount_end")
-    let end: number
-    if (stored) {
-      end = parseInt(stored, 10)
-    } else {
-      end = Date.now() + 60 * 60 * 1000
-      sessionStorage.setItem("turar_discount_end", String(end))
+    let end: number = Date.now() + 60 * 60 * 1000
+
+    try {
+      const stored = sessionStorage.getItem("turar_discount_end")
+      if (stored) {
+        end = parseInt(stored, 10)
+      } else {
+        sessionStorage.setItem("turar_discount_end", String(end))
+      }
+    } catch {
+      // sessionStorage unavailable (in-app browser, private mode, disabled storage) —
+      // fall back to a fresh 60-minute countdown without persisting it.
     }
 
     const update = () => {
